@@ -237,3 +237,194 @@ Nesse capítulo, aprendemos:
 a criar um novo projeto utilizando SwiftUI;
 as principais diferenças entre class e struct;
 a utilizar a pré-visualização para nos ajudar na construção da View.
+
+
+#### 04/08/2023
+
+@02-Elementos de interface em SwiftUI
+
+@@01
+Iniciando a interface do usuário com SwiftUI
+
+[00:00] De volta com o nosso curso, no capítulo anterior nós criamos o projeto chamado Alura Viagens. Primeiro nós visualizamos a estrutura inicial, que é gerada pelo Xcode quando nós criamos o projeto com o SwiftUI e em seguida fizemos uma comparação das impressões iniciais que tivemos em relação ao UIKit e ao SwiftUI. Chegou o momento de nós iniciarmos a criação da interface do nosso aplicativo.
+[00:28] Se você já trabalha em uma empresa de desenvolvimento de apps, provavelmente conhece uma plataforma chamada Zeplin. Nessa plataforma, o pessoal IUX e design sobem os arquivos onde nos fornece então o tamanho, as imagens e as cores que nós, desenvolvedores e desenvolvedores, vamos precisar para criar de fato o layout do aplicativo.
+
+[00:55] Nesse caso, eu tenho o projeto aqui rodando no simulador e eu vou passando para vocês, à medida que nós formos avançando com o nosso curso, as cores, o tipo de fonte, os botões e as imagens e tudo que for necessário. Legal, vamos começar então analisando esse layout, onde nós temos aqui o header do nosso aplicativo, que é essa partezinha roxa, com algumas labels, que aqui em SwiftUI nós chamamos de "Text".
+
+[01:27] Teste temos aqui também dois botões e uma lista. Então essa é a estrutura inicial: basicamente o header do aplicativo e a lista. Então vamos começar nesse vídeo esboçando essa estrutura. Então vamos lá. Se formos analisar aqui em cima, a parte superior, onde nós temos o header, nós temos aqui um "Text" chamado alura viagens, outro "Text" chamado Especial e outro "Text" chamado Brasil, que é uma mensagem que fica aqui no header.
+
+[02:05] Então vamos começar a montar essa estrutura. Vou voltar aqui para o nosso projeto, eu vou apagar essa estrutura inicial que nós criamos no capítulo anterior e nós temos aqui então o "body" vazio. Repare que quando nós apagamos o conteúdo do "body", o compilador nos aponta erros aqui. Então ele fala que a propriedade declarada retorna um tipo, mas não tem inicializadores de expressão.
+
+[02:38] Na verdade, esse erro ocorre porque nós precisamos retornar nessa variável computada, chamada "body", alguma coisa do tipo "View", para que ele consiga montar o layout. Se nós deixarmos aqui vazio, vazio não é do tipo "View", então nós precisamos colocar alguma coisa aqui dentro para que ele consiga entender e compilar o nosso projeto.
+
+[03:04] Legal. Se eu colocar aqui um texto, ele já para de apontar erro, porque nós já estamos retornando um tipo que implementa, na verdade, a "View". Legal, a primeira coisa que nós vamos fazer então é copiar o título do aplicativo, alura viagens. Eu vou colocar aqui então esse mesmo texto "("alura viagens")". Em seguida, nós temos aqui um texto escrito especial e um texto escrito Brasil.
+
+[03:47] Então vamos lá: texto escrito "("ESPECIAL")" e o terceiro texto, escrito "("BRASIL")". Vou deixar esse especial aqui maiúsculo também. Bacana, repare que ele continua apontando um erro aqui e isso é muito importante, que precisamos entender como é montado o layout SwiftUI. Colocamos aqui três textos, um embaixo do outro. Só que não é dessa forma que ele trabalha, na verdade nós temos aqui alguns componentes que nós precisamos utilizar para montar esses layouts.
+
+[04:39] Então, nesse caso aqui, nós queremos empilhar os textos e nós temos um componente próprio, que se chama "VStack" ou Vertical StackView, que ele serve justamente para empilharmos um elemento embaixo do outro. Se você já acompanhou os cursos de IOS, aqui onde criamos layouts com o UIKit, na segunda parte do curso nós falamos um pouco sobre StackView, então é o mesmo conceito aqui no SwiftUI. E se você for tirar a prova disso, eu posso fazer isso aqui através do Library.
+
+[05:22] Eu vou pesquisar aqui por texto, que é a mesma coisa que nós acabamos de fazer ali no código, vou clicar e arrastar aqui para dentro, coloquei um texto. Uma dica, antes de continuarmos, se você estiver modificando o "body" e não estiver refletindo aqui do lado, do preview, da pré-visualização, ou você clica em Resume ou você clica nesse botãozinho aqui, Try Again, que ele vai tentar observar novamente todas as alterações que nós estamos fazendo aqui do lado do código.
+
+[05:56] Não repare, que agora ele já refletiu. Então sempre que você estiver mexendo aqui no código e não estiver refletindo aqui, você precisa clicar novamente no botãozinho Try Again ou Resume, que aparece aqui no lado superior direito do preview. Bom, continuando, nós estávamos falando sobre o empilhamento dos elementos. Coloquei um texto. Se eu tentar colocar outro texto aqui através da biblioteca - vou procurar aqui por text, vou clicar e vou arrastar e para cá.
+
+[06:32] Repara que ele fica com esse tracinho azul embaixo desse texto, Placeholder, e eu vou soltar então mais um elemento aqui. Legal, repara que aqui do lado, da pré-visualização, onde eu estou passando o cursor do mouse, ele ficou empilhado um embaixo do outro. Só que para que isso aconteça, ele criou aqui automaticamente um vertical stack, ou seja, um "VStack". Resumindo: todas as vezes que nós precisamos empilhar os elementos, nós vamos utilizar algum objeto dessa família stack.
+
+[07:10] Nós temos basicamente três tipos: nós temos o VStack, nós temos também o Horizontal Stack e nós temos o ZStack. Qual a diferença deles? Nós vamos estudar agora. Olha só: quando utilizo aqui o VStack, eu empilho um elemento embaixo do outro, igual nós estamos vendo aqui no preview. Se eu quiser colocar uma label, ou seja, um texto ao lado do outro, eu utilizo o Horizontal Stack, então eu vou mudar aqui o V para o H.
+
+[08:02] Repara aqui, essa seção aqui do preview, ele não alterou automaticamente. Então eu vou clicar nesse botãozinho aqui, Resume, onde eu estou passando o cursor do mouse, ele vai atualizar e vai modificar de acordo com as alterações aqui do código. Quando eu alterei aqui para Horizontal Stack, ele deixou os textos um ao lado do outro. E nós temos o terceiro tipo de empilhamento, que é ZStack, onde nós conseguimos colocar um elemento sobre o outro.
+
+[08:39] Isso é bastante utilizado no caso de imagens, por exemplo. onde eu posso colocar aqui uma imagem, vou colocar aqui um "Image". Eu já tenho aqui uma imagem no projeto, eu vou deixar para vocês fazerem o download na seção de exercícios na plataforma da Alura. Como eu já tenho aqui uma imagem, eu vou colocar aqui o nome dela e eu tenho um texto, escrito Placeholder, que é aonde eu estou passando aqui o cursor do mouse.
+
+[09:12] É bastante utilizado no caso de imagens, porque eu posso colocar uma imagem e colocar uma label, ou seja, um texto aqui de rodapé e tudo mais. E serve também para ilustrar, de exemplo, o uso do ZStack. Então, basicamente, nós estudamos o Vertical Stack, um elemento empilhado abaixo do outro, Horizontal Stack, um elemento empilhado ao lado do outro e o ZStack, um elemento sobre o outro. Então nós temos esses três tipos de empilhamento.
+
+[09:45] SwiftUI trabalha bastante com esse conceito de StackView e é importante que você saiba esse conceito, porque nós vamos utilizar bastante durante o curso. Agora que nós já entendemos que para empilhar um elemento nós precisamos utilizar um StackView, eu vou começar aqui colocando um StackView, um Texto chamado "("alura viagens")", um outro Texto chamado "("ESPECIAL")" e um outro texto, chamado "("BRASIL")".
+
+[10:26] Vou pedir para ele fazer o reload aqui do preview, vou clicar em Resume. Bacana, então nós temos aqui o empilhamento dessas labels. Repara que aqui, no simulador, temos a label "alura viagens" centralizado e a label "ESPECIAL" e "BRASIL" alinhada à esquerda. Mas não se preocupe, nesse momento importante criarmos o esboço do nosso aplicativo e nos próximos vídeos nós vamos ter aulas específicas sobre a estilização desses elementos.
+
+[11:02] Bacana, então nós já criamos as três labels, ou seja, os três textos iniciais. Agora nós vamos criar então o esboço também da lista. Então aqui nós temos uma lista com várias viagens e aqui vamos vai criar também uma lista, com o título das viagens. Então quando eu quero criar uma lista, eu tenho também um componente de interface de SwiftUI pronto para isso, que se chama lista, em inglês chamamos de "List".
+
+[11:40] Quando eu crio uma lista, eu posso inicializar ela passando alguns objetos dentro, que é o próprio título das viagens. Então eu vou copiar aqui: "("Rio de Janeiro")", vou colocar aqui um texto também com o título "("Ceará")", o próximo "("Atibaia")", cidade do interior de São Paulo, e eu vou colocar aqui "("Rio de Janeiro")". Bacana, isso é muito interessante, quando criamos uma lista, porque se você já está acostumado a trabalhar com UIKit, você lembra da complexidade que é para criar uma lista simples.
+
+[12:29] Nós precisamos, no ViewController, setar o protocolo de UITableViewDataSource, onde nós precisamos de implementar alguns métodos obrigatórios como, por exemplo, o "numberOfRowsInSection", que é o número de linhas que a tabela vai ter. E também o método "cellForRowAt indexPath", onde nós devolvemos um UITableViewCell, que nesse caso seria o título das viagem.
+
+[12:57] Então com o UIKit é uma estrutura bem mais complexa e com o SwiftUI, apenas com algumas linhas nós conseguimos criar uma lista simples. Por enquanto ela está aqui fixa, com os valores fixos. Nos Capítulos mais adiante, vamos trocar essa lista fixa por uma lista dinâmica, mas a ideia desse vídeo é justamente nós esboçarmos o header do nosso app, que é essa parte onde eu estou passando aqui o cursor do mouse.
+
+[13:29] E também criarmos uma lista simples, que representa essa lista bonitona, que nós vamos criar nos próximos vídeos. Bacana, essa era a ideia. No próximo vídeo então nós vamos continuar mexendo na estilização do header e dos outros componentes. Nos vemos então no próximo vídeo.
+
+@@02
+Empilhando elementos
+
+Nesse capítulo, começamos a dar os primeiros passos na construção de layouts utilizando o framework SwiftUI. Um dos pontos mais importantes dessa aula é entender como funciona o empilhamento de elementos dentro da View. Analise as alternativas e escolha a correta, que explica a definição de VStack, HStack e ZStack.
+
+VStack empilha os elementos lado a lado. HStack empilha os elementos um embaixo do outro. E o ZStack empilha elementos um sobre o outro.
+ 
+Alternativa correta
+VStack empilha elementos um sobre o outro. HStack empilha elementos lado a lado. E o ZStack empilha elementos um embaixo do outro.
+ 
+Alternativa correta
+VStack empilha elementos um embaixo do outro. HStack empilha elementos lado a lado. E o ZStack empilha elementos um sobre o outro.
+ 
+Correto! Todos os StackViews são utilizados para empilhar os elementos na View.
+Alternativa correta
+VStack empilha elementos um embaixo do outro. HStack deixa o elemento neutro na tela, podendo arrastar para onde quiser. E o ZStack empilha elementos um sobre o outro.
+
+@@03
+Estilizando o header do aplicativo
+
+[00:00] Acabamos de montar a estrutura do header do aplicativo, começamos criando algumas labels correspondente ao header e em seguida montamos uma lista simples, contendo o nome de alguns destinos brasileiros. Dando continuidade, agora chegou a hora de estilizar o header do aplicativo. Então eu estou aqui com o simulador aberto, nós temos aqui, como você pode ver, o título com uma fonte diferente, aqui também a cor de fundo do header e a ideia desse vídeo é começarmos a mexer nessas propriedades.
+[00:35] Então vamos lá. Aqui nós temos algumas variações de formas que nós podemos fazer isso. Então vamos começar mudando a cor de fundo do header para roxo, para isso vamos utilizar um recurso chamado SwiftUI Inspector. Então nós vamos manter a tecla "Command" pressionada e vamos clicar em cima do StackView que empilha esses elementos. Então olha só o que eu vou fazer: eu vou segurar o "Command", vou clicar no StackView e vou selecionar essa opção Show SwiftUI Inspector.
+
+[01:10] Bacana, quando eu clico nela, por default, ele abre essa caixa de diálogo com algumas opções e o que nós precisamos nesse momento é alterar a cor de fundo. Como você pode ver, não temos aqui a opção background nem nada parecido, mas nós temos essa opção de adicionar um modificador. Eu vou clicar nessa opção e quando eu clico aqui, ele dá várias outras opções de customização, entre elas a opção Background.
+
+[01:42] Então eu vou clicar aqui, repara no preview que ele já alterou a cor aqui para azul, que é uma cor default que ele já traz aqui para nós. Mas eu posso clicar nessa caixinha de diálogo e escolher alguma outra cor padrão, que já vem aqui para nós utilizarmos. Eu vou escolher a cor roxa, a purple. Quando eu clico aqui, ele já altera então com a cor selecionada. Então repara que nós já conseguimos na pintar o header do nosso app através da opção SwiftUI Inspector.
+
+[02:16] Agora nós vamos seguir alterando os tipos de fontes que nós vamos trabalhar. Então vamos começar mudando a cor da fonte. Como podemos mudar a cor da fonte? Eu posso vir aqui, clicar SwiftUI Inspector. Ele vai trazer aqui algumas coisas, já por default, entre elas eu tenho essa caixinha aqui chamada Font, onde eu tenho aqui algumas opções e eu vou alterar então a opção Color.
+
+[02:49] Vou selecionar opção White, que eu vou escolher a cor branca, repara que quando eu escolho, ele gera esse código, que é esse ".foregroundColor" e ele seta a cor, que é "(Color.White)". Repara que aqui a sintaxe ficou muito mais reduzida e intuitiva. Quando nós trabalhávamos com UIKit, nós tínhamos que colocar UIColor e, em seguida, .white, algo do tipo. Aqui nós digitamos color direto.
+
+[03:22] Então aqui na pré-visualização nós já temos a label alura viagens com a nova cor, que é a cor branca. Agora nós vamos alterar a cor então - na verdade nós vamos alterar na fonte dessa label, desse texto alura viagens. Além do SwiftUI Inspector, que é esse ajudante que nos informa as opções disponíveis para customizar tanto texto quantos StackView ou outros elementos de UI, nós podemos fazer isso também por código.
+
+[03:56] Repara que quando nós clicamos em alguma opção do SwiftUI Inspector, ele gera automaticamente esse código. Se nós já soubermos a sintaxe, nós podemos fazer isso direto. Um exemplo disso é a mudança de fonte, então eu vou fazer exatamente isso, eu vou fazer direto no código. Então eu vou apertar o ".", vou digitar "font". Como eu vou escolher uma fonte customizada, eu vou apertar ".custom" e em seguida o nome da fonte.
+
+[04:27] A fonte que eu vou escolher vai ser a fonte "("Avenir Black")" e o tamanho da fonte vai ser o tamanho "20)". Repara que ele já alterou aqui na pré-visualização o tamanho e também o tipo da fonte. Agora nós vamos prosseguir fazendo a mesma coisa nas labels abaixo, nos textos abaixo. Então mesmo esquema: vou dar um "Enter", vou mudar cor. Para mudar a cor é o ".foreground", então ".foregroundColor:(Color.White)".
+
+[05:06] E para altera o tipo de fonte, ".font", onde eu passo aqui uma fonte customizada, então eu escolho "(.custom" e em seguida eu vou colocar o nome da fonte. Repara que essa label especial, eu estou aqui com o simulador aberto, ela é uma label, ou seja, um texto, um "Text", com uma fonte um pouquinho mais fina em relação às outras: aluna viagens, especial e Brasil. Alura viagens e Brasil é parecido, agora a label especial é um pouquinho diferente.
+
+[05:41] Então nós vamos alterar esse tipo de fonte. Eu vou escolher aqui "Avenir", na verdade, "Avenir Book" e o tamanho vai ser ": 20". Repara que ficou uma fonte mais fininha, igual nós temos aqui no exemplo. Vamos para o último texto, vou alterar o fundo - na verdade a cor do texto. Uma coisa importante é o seguinte, que muita gente confunde, por exemplo, quando eu vou alterar a cor do texto, eu posso vir, segurar a tecla "Command", clicar em cima do texto, SwiftUI Inspector.
+
+[06:30] Eu posso selecionar aqui, se eu me confundir, que é muito comum esse erro, eu posso vir aqui em adicionar modificador e escolher a opção Background, que está aqui. Quando eu faço isso, repara que eu altero a cor do frame da label, do espaço que ela ocupa na tela, no caso aqui azul. Então quando eu escolho a opção Background, que nós estamos acostumados para mudar o fundo e tudo mais, nós alteramos o espaço que a label ocupa, a cor do espaço que a label ocupa, não necessariamente a cor do texto.
+
+[07:09] Então é bem diferente ".foreground" quando eu quero alterar cor do texto, da escrita, e o ".background" quando eu quero alterar a cor do espaço que a label ocupa. Utilizei isso só como exemplo para você ter atenção e agora nós vamos utilizar novamente o ".foregroundColor(Color.White)" e também vamos mudar a fonte. Uma fonte customizada, "("Avenir Black")" e o tamanho vai ser ": 23". Bacana, então já alteramos a cor e a fonte e também o tamanho desses três textos que nós colocamos.
+
+[07:59] Agora o próximo passo é nós alinharmos os textos à esquerda, que é o que nós vamos fazer agora. Quando nós quereremos modificar a posição dos elementos e o alinhamento, nós podemos utilizar uma propriedade que é a Frame. Então eu vou alterar o alinhamento do texto Especial, então eu vou clicar aqui no final, ".frame" - repara que aqui ele tem vários inicializadores, nesse momento vou escolher esse, onde eu passo um tamanho mínimo, um tamanho máximo e o alinhamento.
+
+[08:41] Repara que ele tem várias opções, começando aqui pela largura mínima. A largura mínima então nós vamos colocar aqui "0", largura ideal, repara que ela é opcional, tem um pontinho de interrogação, então eu não preciso necessariamente passar essa informação. Como eu não preciso, eu não vou utiliza-la, então eu vou apagar esse parâmetro. Aqui eu preciso passar a largura máxima. Por que eu preciso passar a largura máxima?
+
+[09:14] Porque a label Especial, ela vai ocupar todo esse espaço onde eu estou passando o cursor do mouse, desde o lado esquerdo até o lado direito. Dessa forma eu consigo centralizar, ou seja, alinhar a label para qualquer um dos lados. Então eu vou alinhar ela para esquerda em relação ao tamanho total do header. Então a largura total, eu quero que ele fique à esquerda.
+
+[09:40] Por isso, eu vou passar o tamanho máximo que ele conseguir, ".infinity". Esse próximo parâmetro eu também não vou utilizar e eu vou utilizar somente o alinhamento. O alinhamento é o seguinte: eu tenho duas opções ".leading", que é o alinhamento à esquerda, como vocês podem ver aqui, onde eu estou passando o cursor do mouse. Eu posso passar também o alinhamento ao centro, ".center" e eu posso passar o alinhamento à direita, que é o ".trailing".
+
+[10:16] Olha só, por isso que foi importante eu passar aqui a largura máxima como ."infinity", porque ele vai tentar pegar todo o tamanho da "View", que é onde está essa linha azul, aqui onde eu estou passando o cursor do mouse, ".infinity" ele pega toda essa largura. E como eu tenho toda a largura do device, eu consigo alinhar onde eu quiser: à direita, que é ".trailing", ao centro, que é ".center" ou à esquerda, que é ".leading".
+
+[10:47] Então eu vou voltar aqui para o tipo de alinhamento ".leading". Vou fazer a mesma coisa com o texto Brasil, então ".frame", vou escolher esse inicializador, largura mínima ": 0", largura ideal eu não preciso, largura máxima ".infinity", para ele ocupar toda a largura que o device permitir. Esses dois parâmetros, a seguir, também não vamos utilizar, eu vou utilizar somente o alinhamento. A mesma coisa, eu vou alinhar ele à esquerda, ou seja, ",leading".
+
+[11:35] Bacana, já estamos chegando em um resultado similar ao que nós precisamos. Agora o que precisamos fazer é mexer no espaçamento entre a label e a parte esquerda do aplicativo. Como você pode ver, aqui temos a label Especial com uma borda, ou seja, com um padding, um valor que deixa um espacinho entre a margem esquerda e o texto. Nós vamos utilizar então o ".padding", que é justamente isso.
+
+[12:10] Ele nos ajuda a colocar uma borda entre a distância do conteúdo e o elemento, então nós vamos utilizar um ".padding". Só que se eu deixar o ".padding" dessa, sem especificar em qual alinhamento eu quero deixar no seu valor, ele pega todo os espaços, ou seja, ele pega aqui à esquerda, ele pega acima, ele pega abaixo e ele pega também à direita. Quando eu deixo o ".padding" sem especificar, ele utiliza um valor padrão para todos os lados: à esquerda, acima e abaixo.
+
+[12:53] Como eu quero colocar um alinhamento somente à esquerda, eu vou utilizar o ".padding(.leading, )" o valor que eu quero, que é ", 30". Repara que agora ele só colocou o espaçamento, que é na verdade a distância entre o conteúdo dos elementos e a sua borda à esquerda, que foi aonde eu especifiquei aqui. Então eu coloquei um ".padding", à esquerda, com o valor ", 30)" para ele deixar esse espaço.
+
+[13:27] Nós vamos fazer a mesma coisa com o texto Brasil: ".padding", repara que se eu deixar assim ele vai deixar novamente um valor, que é o espaço entre o seu conteúdo e a borda, para todos os lados, porque eu não especifiquei qual é a margem que eu quero colocar esse espaçamento. Nesse caso, eu preciso colocar só esquerdo novamente, então ".leading, " o valor, que é ", 30)".
+
+[14:01] Beleza. Repara que agora nós temos um espaçamento nas duas labels, ou seja, nos dois textos que nós precisamos. Para finalizar, vamos pedir para o Swift ignorar a área que chamamos de SafeArea, que é esse espacinho branco aqui, para que consigamos então pintar o header conforme o que precisamos aqui no simulador. Para isso, nós vamos utilizar um método que se chama ".egdesIgnoringSafeArea".
+
+[14:39] E nós vamos passar aqui "(.all)", ou seja, todo o espaço. Dessa forma, nós conseguimos então customizar - iniciar, na verdade, a estilização do header, mexendo na cor, no espaçamento, no alinhamento e também na fonte. Já ficou um pouquinho melhor, mas nos próximos vídeos, nós vamos terminar então a estilização desses componentes. Até o próximo vídeo.
+
+@@04
+Posição e tamanho com Geometry Reader
+
+[00:00] De volta com o nosso projeto, no vídeo anterior nós começamos a mexer um pouquinho no header, onde nós já trocamos a cor de fundo, mexemos nos texts, já alteramos a fonte, mexemos um pouquinho também no posicionamento. Mas ainda está longe da forma que nós deveríamos deixar. Então eu tenho aqui o simulador com o layout pronto, repara que aqui nós temos um header um pouquinho mais alto, a altura dele é maior.
+[00:29] O posicionamento do texto, do título do nosso aplicativo em relação ao topo também é diferente. Então ideia nesse vídeo é continuarmos mexendo no header e também no posicionamento do text alura viagens e no vídeo seguinte, vamos mexer então nesses botões aqui: Hotéis e Pacotes. Então vamos continuar. Como nós queremos mexer na altura do header, ou seja, nós precisamos deixar essa View roxa um pouquinho maior - olha só como ela está aqui.
+
+[01:00] Você já deve ter ouvido, se você já programa para iOS, sobre a classe Frame. Ela nos dá acesso à altura e à largura de um elemento de interface do usuário e nós podemos alterar esses valores. Todos os elementos que implementam esse protocolo View, no caso o nosso VStack, eles têm acesso a um método chamado Frame. Vamos conferir? Vou segurar aqui a tecla "Command", vou clicar em "View", vou escolher essa opção aqui: Jump to Definition.
+
+[01:40] Ele vai abrir então a definição do protocolo "View". Se eu procurar aqui por ".frame" ou alguma coisa parecida, ele vai me trazer justamente o método que nós vamos utilizar, que é esse método aqui, um método público, onde nós passamos uma largura, que é opcional - olha o pontinho de interrogação aqui, nós podemos passar ou não. Nós podemos também passar ou não a altura, porque ela também é opcional, e nós precisamos passar o alinhamento.
+
+[02:15] Então são três parâmetros: largura, altura e o alinhamento. Beleza. Isso está no protocolo View. Como o nosso VStack implementa esse protocolo, vou clicar aqui, segurando a tecla "Command" na definição dele e ele implementa esse protocolo, ou seja, nós temos acesso ao método ".frame". E nós vamos utilizá-lo agora. No final do nosso VStack, ele começa aqui e ele fecha aqui embaixo - você vai ver, ao decorrer do curso, que vão ter várias aberturas e fechamentos, e às vezes fica um pouquinho confuso de sabermos onde abre aonde fecha.
+
+[03:00] Então uma forma bacana é: quando você clica na chave de abertura, ele mostra rapidinho aqui qual é a chave de fechamento. Então deixa eu clicar aqui para te mostrar. Eu vou clicar aqui, repara que ele fica amarelinho aqui embaixo. Vou fazer de novo. Cliquei aqui, ele mostrou que a chave de fechamento está aqui embaixo. Então é exatamente aqui que nós vamos mexer no Frame.
+
+[03:28] Vou apertar o "Enter", vou apertar aqui ".frame", ele vai me trazer basicamente dois métodos: um, que é - o primeiro, na verdade, que é esse onde passamos a largura, a altura e o alinhamento, que é o que nós vamos utilizar. E esse aqui debaixo, onde nós passamos uma largura mínima, uma largura ideal e tem vários outros parâmetros, que não é o caso. Então eu vou escolher esse primeiro método, vou dar um "Enter".
+
+[03:56] Na largura do header, ou seja, nessa partezinha roxa aqui que eu estou passando o cursor do mouse, é largura do device. Então se o iPhone for um iPhone menor, vai ser a largura daquele iPhone, se for um iPhone maior, vai ser também a largura total daquele Iphone, se for um iPad, vai ser a largura total do iPad. Ou seja, é a largura da superview, da primeira hierarquia, a View principal.
+
+[04:28] Então como é que nós pegamos o acesso à essa View? Nós precisamos ter acesso à superview nesse caso. Se você já está acostumado com o UIKit, geralmente quando nós estamos trabalhando com a interface do usuário, nós digitando "self." - no caso aqui selfie não, self é a própria View, é o ContentView, ".frame.widht", geralmente era assim que nós fazíamos quando nós estávamos trabalhando com o UIKit. Nós pegamos a View, ".frame.widht" ou ".height", a largura ou a altura.
+
+[05:09] Nesse caso, a View que nós estamos trabalhando, que implementa o protocolo View, ela não tem acesso ao Frame. Quando nós estamos trabalhando então com o SwiftUI, é uma forma um pouquinho diferente. Para que nós consigamos pegar exatamente o Frame, ou seja, a largura, a altura, da View, nós precisamos utilizar um objeto chamado leitor de geometria, em inglês geometry reader.
+
+[05:41] Então nós vamos utilizar esse objeto para que consigamos ter acesso às opções de Frame da View. Então olha só que diferente: eu vou colocar esse objeto aqui em cima, porque queremos englobar todo o VStack que que nós estamos utilizando, que é o próprio header, então "GeometryReader{}", aqui eu coloco um nome qualquer, nesse caso vou colocar "{ view in}" e aqui dentro eu coloco todo o código.
+
+[06:21] Aqui poderia ser qualquer coisa, blábláblá, mas enfim, vou deixar aqui "view", que é mais comum. Dentro dele, eu vou colocar todo o VStack, então ele começa aqui e termina aqui, e tem todos esses métodos configurando ele. Então eu vou pegar ele, recortar e vou colar ele aqui dentro. Com essa View, que o leitor de geometria, que é esse objeto, nos traz, eu faço o seguinte: eu venho aqui, apago esse exemplo que eu utilizei, e vou digitar a "view.size.width". Bacana.
+
+[07:16] Então aqui é a largura total da superview. Vou fechar aqui o menu lateral só para ficar com uma visualização melhor. A altura, que é o que nos interessa nesse caso, eu vou deixar aqui o valor, por enquanto, de ": 180", depois testamos em outros tamanhos de iPhone e iPad, e se for necessário, nós mudamos. E o alinhamento do nosso header. Onde ele vai ficar? No topo, então ".top".
+
+[07:44] Essa é a ideia. Beleza, você vai falar: mas agora olha só o que aconteceu, ele ficou no centro, ficou menor e a TableView também nem está aparecendo completa.". Vamos analisar o que acabamos de fazer. Nós colocamos aqui um valor de 180 para tudo que está dentro do VStack, inclusive a lista. Então repare que a lista está dentro do nosso Vertical Stack e por isso ela também entra nessa regra onde nós citamos um valor de 180.
+
+[08:19] O ideal, para resolver isso, é nós tirarmos essa lista daqui, de dentro do header, e empilharmos ela abaixo. Então só para analisarmos certinho, eu tenho aqui um Vertical StackView, onde eu estou empilhando os elementos de texto, e também tenho uma lista. Nós vamos tirar essa lista daqui - vou tirar essa lista daqui. E eu vou utilizar mais um VStack, que vai ser o elemento que vai empilhar o header e a lista.
+
+[09:00] Então olha só, só para não ficar confuso, eu vou fazer assim: vou colocar aqui um marcador, onde vou anotar que aqui é o "VStack Principal". Então "VStack", onde eu vou colocar a lista e eu vou tirar daqui o VStack que empilha os elementos do header, que eu vou deixar ele aqui. Legal, repara que agora os dois elementos já estão empilhados certinho. E só para você tomar nota, esse VStack aqui debaixo, ele diz respeito somente ao header.
+
+[09:46] Então "VStack Header". Bacana. Então tenho o VStack principal, que empilha o header e a lista, e tenho o VStack só do header, onde eu empilho os elementos de texto. Legal, a primeira parte já estou ok, nós conseguimos então aumentar um pouquinho o tamanho do header e para finalizar esse vídeo, falta nós então colocarmos um espaço entre a borda superior do nosso texto alura viagens em relação ao topo do nosso dispositivo.
+
+[10:26] Então é isso que nós vamos fazer agora. Eu vou começar aqui, mexendo então no padding, que nós inclusive já trabalhamos com ele, nós setamos um padding, por exemplo, aqui para o nosso texto Especial, onde nós pegamos a margem esquerda, que é o "leading", colocamos um valor de ": 30", que é esse espacinho onde eu estou passando aqui o cursor do mouse e também na fonte do texto Brasil.
+
+[11:00] Então nós também colocamos um padding na margem esquerda, onde nós setamos um valor de ": 30". Agora nós vamos fazer a mesma coisa, só que não vai ser na margem esquerda e sim no topo, para a label alura viagens, assim conseguimos aproveitar melhor o espaço aqui do nosso header. Então vamos lá. Aqui embaixo, depois de ".font", eu vou colocar um padding, ".padding". Se seu deixar sem especificar qual lado, ele pega todos os lados.
+
+[11:31] Repara que eu estou passando o cursor do mouse aqui embaixo, onde tem um espacinho default que ele colocou, aqui do lado direito, no lado esquerdo, e acima. A ideia é que nós precisamos colocar apenas acima, então ".top, ", o valor que eu quero de espaçamento, no caso vou deixar aqui ": 50". Bacana. Dessa forma nós centralizamos aqui a label alura viagens, deixamos aqui um pouquinho mais para baixo.
+
+[12:02] E a ideia desse vídeo era justamente essa: aprendermos a utilizar leitor de geometria, que nos dá acesso às opções de altura e largura, que vai ser amplamente utilizado quando nós estamos trabalhando com SwiftUI e também mexer no posicionamento desses elementos. No próximo vídeo então vamos continuar mostrando e implementando a parte dos botões, que é esse Hotéis e Pacotes. Então nos vemos em instantes no próximo vídeo.
+
+@@05
+Consolidando seu conhecimento
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você implemente o que foi visto no vídeo para poder continuar com o próximo capítulo que tem como pré-requisito todo código aqui escrito. Se por acaso você já domina esta parte, em cada capítulo você terá a opção de baixar o projeto feito até aquele ponto. Você encontrará o link para download na próxima explicação do capítulo.
+
+
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
+
+@@06
+Download do projeto
+
+Dica: Clicando no link a seguir, você consegue fazer o download do projeto.
+
+https://github.com/alura-cursos/alura-viagens-swiftui/archive/764026b00b93421436501b4143fa744f4e2be2b7.zip
+
+@@07
+O que aprendemos?
+
+Nesse capítulo, aprendemos a:
+utilizar VStack, HStack e ZStack;
+implementar elementos como: Text, Button, List e suas propriedades;
+criar listas.
