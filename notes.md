@@ -428,3 +428,239 @@ Nesse capítulo, aprendemos a:
 utilizar VStack, HStack e ZStack;
 implementar elementos como: Text, Button, List e suas propriedades;
 criar listas.
+
+#### 07/08/2023
+
+@03-Criando novas Views
+
+@@01
+Botões e comportamentos
+
+[00:00] Então nós estamos falando ainda sobre o header do nosso aplicativo, nós acabamos de mexer na altura. Nesse vídeo nós vamos implementar esses dois botões, que nós estamos vendo aqui: Hotéis e Pacotes. Então vamos começar mexendo nisso. Eu vou clicar aqui no Library, que é essa setinha com o mais aqui em cima, no canto superior direito, e vou pesquisar por Button. Button.
+[00:28] Aqui tem uma mudança, que geralmente quando nós trabalhamos com o UIKit, nós temos os componentes com o prefixo UI: UILabel, UIButton UISegmentedControl e tudo mais. A sintaxe do SwiftUI é um pouquinho mais limpa, é direto o nome do elemento, então se nós estamos trabalhando com botão, é Button. Eu vou clicar nesse botão e vou arrastar aqui para baixo, depois do VStack onde nós estamos criando o header.
+
+[01:04] Então coloquei aqui um botão e eu vou colocar mais um botão. Vou vir aqui novamente no Library, eu posso clicar aqui e arrastar ele ao lado desse botão, dessa forma aqui, ao lado. Ele já cria então um Horizontal Stack, repara que ele criou aqui para nós um Horizontal Stack. Eu poderia fazer isso também programaticamente, não tem problema nenhum, as duas formas funcionam e ficam exatamente iguais.
+
+[01:37] Então vamos dar uma olhada novamente aqui no simulador. Eu tenho o primeiro botão onde se chama Hotéis e o segundo, Pacotes. Então eu já vou começar alterando o texto desses botões: "("Hotéis")" e aqui embaixo "("Pacotes")". Bacana. Então nós vamos começar a estilizar de fato esse botão. Nós vamos começar então alterando a fonte do botão, na verdade a fonte do texto do botão.
+
+[02:08] Então aqui embaixo de "Text" eu vou vir, vou dar um ".", vou chamar aqui ".font", vai ser uma fonte customizada, então vou apertar aqui ".custom". Eu passo aqui o nome da fonte, como string. A fonte que eu vou utilizar nesse caso é "("Avenir Medium")" e o tamanho é ": 17". Repara que essa forma de nós configurarmos a fonte é um pouco perigosa, porque se nós errarmos aqui a digitação, ele pode não encontrar fonte que nós estamos procurando.
+
+[02:43] Então sempre ficar atento a isso ou criar uma constante no projeto com o nome dessas fontes. Continuando, vamos fazer a mesma coisa aqui embaixo: ".font", vai ser uma fonte customizada, "("Avenir Medium")", e o tamanho vai ser ": 17". Ótimo. Agora nós vamos alterar a cor do texto. A cor do texto, repara que está azul, nós vamos deixar branco, que é exatamente como nós estamos vendo aqui no nosso layout base.
+
+[03:24] Eu vou utilizar agora uma outra forma de customizarmos os elementos, que é o SwiftUI Inspector. Nós vimos isso no primeiro capítulo desse curso e eu vou relembrar aqui com vocês, que é o seguinte: eu posso segurar a tecla "Command" do teclado. Segurando a tecla "Command", eu posso clicar aqui no elemento que eu quero customizar, no caso o texto. Então segurei o "Command", cliquei no texto, ele vai me trazer aqui algumas opções.
+
+[03:51] Eu vou escolher aqui essa opção: Show SwiftUI Inspector. Eu clico nela, ele vai abrir aqui uma caixa de diálogo, com várias opções. O que eu preciso é alterar o tamanho - na verdade, a cor do texto. Quando falamos em cor de texto, temos que tomar um pouquinho de cuidado, que geralmente associamos à background color. E, nesse caso, a cor do texto é Foreground Color.
+
+[04:18] Então nós vamos achar aqui o Foreground Color. Eu tenho aqui essa opção, que é a nós vamos utilizar. Cliquei em Foreground Color, ele vai me trazer, por default, o azul, que é exatamente a cor que ele traz aqui, quando nós criamos um botão. Nós vamos trocar. Ao invés de azul, nós vamos trocar aqui para White, que é branco. Bacana. Então nós fizemos isso utilizando SwiftUI Inspector, agora vamos fazer a mesma coisa, só que programaticamente.
+
+[04:55] Então ."foregroundColor(.white)". Então, como você pode ver, as duas formas funcionam bem e alcançam o mesmo resultado. Agora, nós não estamos conseguindo ver a escrita dos botões, porque a cor de fundo do botão também está branca. Então vamos alterar a cor de fundo do botão. Eu vou fazer isso aqui, dessa vez utilizando o SwiftUI Inspector. Vou clicar aqui em cima do botão, com a tecla "Command" pressionada, SwiftUI Inspector.
+
+[05:34] Não tenho, não estou achando aqui nada sobre Background, então eu venho aqui em adicionar modificador. Clico aqui e procuro por Background, que é essa opção aqui. Ele vai me trazer azul, por padrão. Como esse botão realmente é azul, eu vou manter essa opção. Agora nós vamos fazer a mesma coisa no botão Pacotes, dessa vez eu vou fazer via código. Então ".background(Color.orange)". Beleza.
+
+[06:15] Então nós temos aí os dois botões. Eles não estão com o tamanho ideal, nós já vamos arrumar isso em sequência. Então vamos continuar arrumando o tamanho do botão. Quando nós falamos em altura e largura, nós vimos isso no vídeo anterior, nós estamos falando sobre o Frame, o metodozinho ".frame", que nós vimos no vídeo anterior. Nós queremos deixar aqui com um valor específico a altura e a largura. Então vamos mexer nisso agora.
+
+[06:48] Olha só: ".frame", a largura do botão eu vou deixar aqui com o valor de ": 100" e a altura ": 50". Mais para frente podemos alterar esses valores, à medida que nós formos testando em outros devices. Beleza. Então setei aqui um Frame. Vou fazer aqui a mesma coisa com o próximo botão: ".frame", ": 100" de largura, ": 50" de altura. O alinhamento, como eu não preciso utilizar nesse momento, eu vou apagar esse parâmetro.
+
+[07:35] Repara que eu já tenho aqui um resultado um pouco mais amigável, como o que eu preciso, apesar de não estar igual. Mas já conseguimos então alterar o tamanho dos botões. Agora eu preciso fazer uma alteração que é a seguinte: quando nós estávamos criando o header do app, nós colocamos esse método aqui para ignorar a SafeArea de todos os lados, só que ele está pegando inclusive a parte debaixo do header.
+
+[08:04] Repara que tem uma linha azulzinha aqui, onde ele pega a parte de cima, que ele ignora, que realmente nós precisamos. Só que ele também utiliza essa parte de baixo como uma margem, que é o que eu preciso tirar nesse momento. Eu quero que ele pegue e ignore a SafeArea de toda a View. Então olha só o que eu vou fazer: eu vou comentar essa linha, só para você ver como é que vão ficar esses botões.
+
+[08:32] Comentei o código, os botões, eles ficaram alinhados exatamente com o header, eles ficaram bem embaixo, que é o que nós precisamos para alinhar. Para deixar dessa forma, só que sem perder o método de ignorar a SafeArea, para não ficar branco aqui em cima, eu vou mover ele de lugar, porque ele está no lugar errado. Então eu vou tirar ele daqui, "Command + X" e vou colocar ele aqui, para baixo, dessa forma.
+
+[09:07] Repara que agora nós utilizamos ele da forma correta. Bacana. Então nesse vídeo nós já avançamos, com algumas customizações, alterando a fonte do botão, do texto do botão, também mexemos na cor, no posicionamento, na altura e largura. No próximo vídeo vamos continuar então mexendo no posicionamento e nos espaçamentos entre o botão. Então até o próximo vídeo.
+
+@@02
+Criando células customizadas
+
+Transcrição
+
+[00:00] No vídeo anterior, nós estávamos implementando os botões Hotéis e Pacotes. Nós paramos nesse ponto, onde eles ficaram um pouco abaixo do header. Se nós pararmos para analisar aqui o gabarito, ou seja, o simulador com o layout final, nós precisamos alinhar os botões exatamente no meio da linha final aqui do header do aplicativo. Então nós temos aqui a linha final, onde ele pega o meio dos botões.
+[00:28] E o que nós temos aqui, na nossa pré-visualização, é que nós alinhamos - na verdade, por default, ele empilhou os botões abaixo do header. Então nós precisamos mexer nesse alinhamento. Se nós pararmos para pensar, não é muito difícil, porque é só subirmos os dois botões à metade da altura deles. Ou seja, eles têm uma altura de 50, se nós subirmos a metade, que é 25, eles ficam alinhados exatamente na metade, pegando aqui a linha final dessa View roxa.
+
+[01:07] Então vamos começar a fazer isso. Nós temos aqui o Horizontal StackView, que empilha um botão ao lado do outro, então se nós mexemos no posicionamento dele, ele vai puxar os dois botões um pouquinho mais para cima. Quando nós precisamos mexer nesse tipo de posicionamento, nós utilizamos um carinha chamado Offset, que ele desloca a View pelas distâncias, pelo posicionamento horizontal ou vertical, de acordo como valor que especificamos.
+
+[01:40] Então olha só que bacana: se eu vier aqui e der um ".offset", eu consigo pegar algum eixo, no caso é o eixo "(y:)" que nós vamos alterar, e eu vou subir a metade da altura desse botão. A altura dele é 50, eu vou subir então no eixo "(y: -25)". E nós conseguimos então alinhar os botões exatamente a metade, igualzinho o que precisamos. Só que ainda falta nós mexemos no espaçamento desses botões.
+
+[02:13] Quando nós queremos dar um espaçamento padrão, para que ele ocupe todo o espaço do StackView, nós temos um objeto chamado "Spacer", que nós vamos utilizar aqui. Ele coloca um espaço entre os elementos. Só que não é exatamente esse espaço que nós queremos colocar. Queremos que ele fique com um espaçamento maior, mas não tanto. Repare que aqui ele ficou nas extremidades da esquerda e da direita.
+
+[02:41] Então vamos mexer nesse deslocamento novamente. Eu tenho aqui os botões Hotéis e Pacotes e vamos mexer no Offset deles. Então, exatamente o que fizemos aqui, nós vamos fazer exatamente para cada botão, só que dessa vez alterando o eixo X. Então vamos lá, aqui embaixo de ".background", eu vou dar um ".offset". Vou mexer no eixo X, então "(x: )". Nesse caso, eu vou colocar aqui um valor, por exemplo, de ": 50".
+
+[03:18] Então ele vai deslocar 50, esse é o valor que eu coloquei. E agora vamos fazer a mesma coisa com botão Pacote. Só que, dessa vez, vamos utilizar o Offset, então ".offset", eixo X, só que agora ao invés de ser 50, é -50, porque eu quero que ele venha um pouquinho mais para a esquerda, exatamente assim. Repara que agora o posicionamento dos botões ficou bacana, ficou amigável.
+
+[03:52] Para finalizar então o nosso header, a única coisa que precisamos é alinhar - na verdade alinhar não, é arredondar esses botões. Então vamos trabalhar nisso agora. Como é que eu faço então para arredondar o canto de um botão? Então vamos pegar, por exemplo, esse botão aqui, o primeiro, que é o azul, que é o botão Hotéis, e vamos utilizar um método que se chama Overlay.
+
+[04:19] Então sempre que nós precisamos arredondar os cantos da borda de uma View, vamos utilizar então um modificador chamado Overlay, que é exatamente assim que funciona: ".overlay". Eu passo aqui então uma View, no caso eu quero que ele fique um retângulo arredondado, então vou utilizar essa estrutura e eu passo aqui então um "(cornerRadius:", ou seja, um raio.
+
+[04:51] Vou colocar aqui, por exemplo, ": 10)". Só que, na verdade, eu quero que ele arredonde também o traço ao redor do botão. Repara que aqui ele ficou desconfigurado, então eu vou utilizar um carinha que se chama Stroke. Esse cara, eu posso fazer o seguinte, eu posso pedir para ele arredondar a borda com uma cor, então passar aqui a cor azul, que é a cor do meu botão, (Color.blue)".
+
+[05:24] E também a largura de uma linha, então vou utilizar aqui o ", lineWidth" - na verdade, é aqui dentro mesmo, ", lineWidth:". Eu vou passar aqui um valor de ": 10", por exemplo. Então ele vai arredondar com uma linha de 10 pontos. Repara que ele ficou exatamente da forma que precisamos. Então sempre que nós quisermos arredondar, utilizamos Overlay, passamos a forma que queremos junto com o raio e também a largura da borda que nós queremos arredondar.
+
+[06:00] Então vamos fazer a mesma coisa com o botão Pacotes. Então, aqui embaixo de ".frame", ".overlay", retângulo arredondado. Vou passar um raio de ": 10" e vou utilizar uma linha, a largura de uma linha, então ".stroke" - qual é a cor da linha que nós temos agora? Nós temos a cor laranja, então "(Color.orange)", seguido da largura da linha, que no nosso caso é ": 10". Olha só que bacana: então ele ficou aqui um botãozinho arredondado, igual o que nós temos aqui no nosso layout, que nós estamos utilizando como base.
+
+[06:49] Eu queria chamar a atenção em dois pontos aqui. Primeiro é o tamanho que esse arquivo está ficando, nós temos aqui um único arquivo, ContentView, que ele já traz por default quando nós criamos o projeto com SwiftUi e nós estamos implementando tudo aqui: o Vertical Stack, o header, a lista. Então ele está ficando um arquivão um pouco já difícil de entender. Um dos próximos assuntos que nós vamos ver é exatamente como é que organizamos isso, para que quebremos em documentos menores e fiquei de mais fácil compreensão.
+
+[07:27] E também vamos continuar implementando a lista, que por enquanto é apenas um Text, uma labelzinha simples que nós estamos exibindo aqui. E nos próximos capítulos, nós vamos aprender então a trabalhar com uma lista um pouquinho mais bonita, igual nós estamos vendo aqui: com título, preço, uma imagem. Então vamos estudar tudo isso nos próximos vídeos, eu espero você.
+
+@@03
+Lista dinâmica
+
+[00:00] Chegou o momento de nós mexermos nessa lista que nós criamos nos vídeos anteriores. Como você pode perceber, é uma lista estática, onde nós temos aqui alguns valores pré-definidos. A ideia nesse vídeo é que nós possamos customizar essas células e que consigamos deixar igual esse layout aqui, que eu estou apresentando para você aqui no simulador. Então nós temos um texto, uma label aqui, com o nome da viagem, temos também uma imagem, temos o número de dias e também o valor.
+[00:38] Então isso aqui vai ser o trabalho que nós vamos desenvolver nesse vídeo. Antes de começarmos a colocar a mão na massa, eu vou pedir para que você faça o download de alguns arquivos que nós vamos utilizar aqui, como por exemplo essas imagens, então cada imagem representa um destino. Eu coloquei esses arquivos dentro dessa pastinha Assets aqui, então eu tenho um "img1", "img2", "img3", 4 e 5. Então todas imagens, elas vão estar disponíveis para que você faça o download, na página de exercícios desse curso, lá na plataforma da Alura.
+
+[01:20] Também tem esse arquivo aqui, "viagens.json", que na verdade nós estamos simulando aqui a resposta do servidor quando nós fazemos uma requisição. Então nós temos aqui esse arquivo e temos também essa pastinha Models, com esse arquivo "dados", que ele faz, na verdade, a decodificação desse JSOn e transforma isso em uma lista de viagem. Então essa constante aqui, "viagens", nós vamos utilizar nessas Views que nós estamos construindo.
+
+[01:57] E ele lê, na verdade, esse arquivo JSON e transformar isso em uma lista de viagens, que é o que nós vamos utilizar. Então, recapitulando: você vai precisar desse arquivo "dados.swift", essa classe "Viagem", que já traz aqui algumas propriedades que nós vamos utilizar. Você também vai precisar desse arquivinho "viagens.json" e das imagens "img1" até "img5". Todos esses arquivos vão estar disponíveis para download lá na página da Alura.
+
+[02:33] Depois que você fizer o download e colocar no projeto, igual eu mostrei para você, vamos continuar então mexendo na células da nossa lista. Vou clicar aqui em Resume para ele a mostrar novamente a pré-visualização. Uma dica que eu queria passar aqui para você, caso em algum momento você feche essa aba de pré-visualização, por exemplo assim, para voltar ao normal, basta você apertar a tecla "Command + Option" e a tecla "Return" ou "Enter".
+
+[03:06] Então você apertou ,ele volta aqui; "Command + Option + Return". Então ele abre e oculta. Caso ele oculte e você queira exibir, "Command + Alt + Return". Bacana. Então vou clicar aqui em Resume, ele me mostra a pré-visualização. A ideia é que consigamos então analisar essa célula e pensar em uma forma de montagem. Então nós temos aqui um texto, embaixo nós temos uma imagem e embaixo nós temos duas labels, dois Text, que é esse objeto aqui que nós utilizamos, dois Text, um ao lado do outro.
+
+[03:48] Conforme você for trabalhando com esse esquema de empilhamento, que aqui no Swift chamamos de StackView, pode ser Horizontal StackView ou Vertical StackView, você bate o olho no layout então você já imagina mais ou menos como é que você vai montar. Por exemplo, se eu sei que eu vou empilhar um elemento abaixo do outro, eu vou utilizar então um Vertical StackView.
+
+[04:16] E se eu vou empilhar um elemento ao lado do outro, eu vou utilizar um Horizontal StackView. Então isso você vai pegando, conforme você for praticando, você vai conseguindo interpretar essa montagem de layout. Bacana. Já mostrei para vocês os arquivos que vocês vão precisar fazer o download para conseguir continuar aqui e mostrei também uma forma de nós desenvolvermos esse layout das células. Agora chegou a hora de nós colocarmos então a mão na massa.
+
+[04:50] Primeiro passo que nós vamos fazer aqui é modificar essa lista estática. Então eu vou apagar todos esses textos aqui e eu vou implementar essa constante, que nós temos aqui nesse arquivo "dados.swift", que é essa lista, essa lista de "viagens". Eu vou utilizar ela na View principal. Então vamos lá: a ideia é que eu não utilize mais uma lista estática, então eu vou utilizar aqui aquele array de viagens, que eu já tenho acesso aqui.
+
+[05:27] E aqui ele vai percorrer todas as viagens, então para cada viagem, eu vou fazer - o que eu vou fazer? Vou colocar aqui o texto, por exemplo, referente ao nome de cada viagem. Então "Text(viagem)", que é essa variável aqui, ".titulo", então (viagem.titulo)". Legal. Repara que ele já mostrou aqui, na nossa pré-visualização, o nome de cada viagem.
+
+[06:05] Então essa lista não é mais uma lista estática, agora é uma lista dinâmica, de acordo com esse JSON que nós utilizamos aqui para simular uma requisição. Bacana. Então nós já avançamos em relação a isso. O próximo passo é analisarmos a célula e montar exatamente como nós estamos vendo aqui. Nós vamos continuar a montagem da célula no próximo vídeo.
+
+@@04
+Download dos arquivos
+
+Dica: Clicando no link a seguir, você consegue fazer o download dos arquivos utilizados na aula.
+
+https://caelum-online-public.s3.amazonaws.com/1445-swift-ui/Resources.zip
+
+@@05
+Célula customizada
+
+[00:00] No último vídeo, então nós alteramos a lista estática, que nós estávamos utilizando, para uma lista dinâmica conforme o arquivo que eu disponibilizei para vocês, que é esse "viagem.json". Então agora estamos exibindo o título apenas de cada destino, então tem Ceará, Rio de Janeiro, Paraíba. Então nós já estamos mostrando isso aqui na lista. A ideia é que nós possamos continuar com implementação da célula, que é o título, a imagem, quantidade de dias e o valor e nós vamos então fazer isso agora.
+[00:40] Já analisamos no vídeo anterior como será feita a montagem, temos aqui um elemento embaixo do outro e, na última linha, um texto ao lado do outro. Então vamos construir essa célula agora. Bom, como nós temos então um elemento abaixo do outro, tudo nos indica, para que possamos utilizar então um VStack, um Vertical StackView. Eu vou colocar o título dentro desse Vertical StackView. Então eu já coloquei aqui o título.
+
+[01:16] Em seguida, nós temos então uma imagem. Então vamos colocar uma imagem, vamos chamar aqui a struct, a estrutura de imagem. Repara que é tudo bem intuitivo, pessoal, em SwiftUI: nós queremos colocar um texto, é "Text", uma imagem é "Image", é uma sintaxe bem amigável. Então eu vou chamar aqui a imagem, onde eu passo o nome - o nome da imagem já está serializado no objeto Viagem.
+
+[01:49] Então nós temos aqui uma "struct", chamada "Viagem" e nós temos aqui então uma variável chamada "imagem", que nada mais é do que o nome da imagem. Então eu vou vir aqui, vou chamar o objeto "(viagem)", que nós estamos utilizando aqui na lista e eu vou passar aqui então a variável ".imagem" que contém o nome de cada imagem. Quando eu coloco a imagem, repara que ele estoura o nosso layout, a imagem ocupou um espaço bem maior do que o disponível.
+
+[02:26] Então ela ocupou todo o espaço aqui da lista e também a parte de fora. Temos aqui uma linha azul, indicando que a imagem ultrapassou os limites disponíveis. Para que consertemos esse problema, nós temos uma propriedade chamada resizable, que por padrão as imagens são redimensionadas automaticamente para que ela ocupe todo o seu conteúdo, que pode ir além da tela - que é esse caso que nós estamos vendo.
+
+[02:58] E com essa propriedade resizable - que é essa daqui, "resizable" - a imagem, ela fica automaticamente redimensionada para preencher o espaço disponível. Então nós temos aqui esse espaço, que nós estamos vendo, que é o espaço disponível para a imagem renderizar. Porém a altura da imagem ainda ficou um pouquinho estranha, ficou muito grande. Então vamos mexer na altura.
+
+[03:27] Quando nós mexemos na altura, nós já estudamos isso nos vídeos anteriores, vamos recapitular agora, nós precisamos mexer no Frame. O Frame, ele nos dá a possibilidade de mexer e alterar a largura e a altura. A largura, queremos que ocupe todo o espaço disponível mesmo, porém a largura nós vamos mexer, para que fique um pouquinho menor. Então vamos lá.
+
+[03:56] ".frame", aqui eu vou passar então a altura, que é o que me interessa nesse caso. A altura vai ser de ": 125" e nesse caso eu não vou precisar também do alinhamento, então eu vou apagar. Bacana. Então eu tenho aqui uma imagem, que eu utilizei o resizable, recapitulando, para que ela ocupe somente o espaço disponível e também eu diminuí a altura da imagem para 125.
+
+[04:27] Se precisarmos futuramente alterar esse valor, vamos mexer aqui e vamos fazer algumas validações. Legal, só que nós ainda não terminamos, nós colocamos aqui somente um texto, uma imagem e temos a parte de baixo da célula, onde nós temos a quantidade de dias e o valor. Repara que eu tenho aqui um texto ao lado do outro, então, nesse caso, eu vou utilizar um Horizontal StackView, porque eu tenho um elemento ao lado do outro.
+
+[04:57] Isso significa que eu posso utilizar um StackView dentro do outro. Repara que aqui eu tenho um Vertical StackView e dentro dele, eu estou declarando um Horizontal StackView. Isso é muito comum na construção de layout. Dentro desse Horizontal StackView, eu vou ter um texto. Esse texto vai conter a quantidade de dias, então "viagem.quantidadeDeDias". Se você tiver alguma dúvida em relação às variáveis que a classe Viagem tem, basta você vir aqui e abrir então a classe Viagem, que nós temos aqui várias propriedades.
+
+[05:43] Legal, vamos voltar lá, apareceu aqui já a quantidade de dias, temos aqui 6 dias e tudo mais. Agora nós vamos colocar aqui o texto referente ao valor da viagem, então "Text()", vou colocar aqui "(viagem.valor)", "(viagem.valor)". Bacana. Com isso colocamos já todos os elementos necessários para montagem da célula, falta nós trabalharmos no espaçamento desses elementos. Vamos dar uma olhada?
+
+[06:21] Eu tenho aqui uma label alinhada à esquerda, nesse caso aqui, nós deixamos aqui no centro e aqui eu tenho a label "quantidadeDeDias" também alinhada à esquerda, e a outra label alinhada à direita. Vamos começar por essa parte aqui de baixo, que é um pouco mais simples. Repara que eu tenho uma label, um espaço, em seguida, outra label. Esse espaço que eu tenho aqui no meio, nós já utilizamos uma estruturinha chamada Spacer, que nos ajuda exatamente nisso.
+
+[06:54]"Spacer". Quando eu coloco um "Spacer", ele dá então aqui um espaçamento entre um elemento e outro. Repara que agora a quantidade de dias ficou na esquerda e o valor da viagem ficou à direita. Para finalizar então esse vídeo, agora precisamos alinhar essa label, esse texto "Rio de Janeiro" à esquerda, que é o alinhamento que chamamos de leading - leading é esquerda, trailing é direita.
+
+[07:25] Então nós vamos alinhar à esquerda. Como o título, ele está dentro desse Vertical StackView, eu vou mexer no alinhamento do Vertical StackView. Então vou chamar aqui a propriedade de alinhamento, "alignment", e eu quero alinhar tudo isso à esquerda, ou seja, ".leading". Agora eu coloquei o título à esquerda. Com isso fechamos a primeira parte, onde nós criamos a célula da lista do nosso aplicativo aqui de viagens.
+
+[08:06] Ainda falta o customizar aqui as labels, o título, o tamanho e tudo mais, mas a ideia principal nós já desenvolvemos nessa aula, que foi a criação da célula. Um ponto que eu queria chamar a atenção de vocês, que inclusive eu mencionei no vídeo anterior, e nós vamos resolver isso no próximo vídeo, é o seguinte: agora nós já completamos todo o layout, só que nós deixamos tudo isso em um arquivo só.
+
+[08:36] Você pode perceber que o arquivo ficou bem extenso e a tendência desse arquivo é só aumentar, caso ocorra a inclusão de algum novo componente e tudo mais. E é sempre uma boa prática, que nós ao percebermos que o arquivo está crescendo, quebrarmos isso em arquivos menores.
+
+[08:56] Então a ideia do próximo vídeo é quebrarmos, por exemplo, a parte de cima, que é o header, em um arquivo, deixar a lista com as células em outro, para que consigamos então minimizar esses arquivos e consigamos ter uma leitura mais efetiva do código. Isso é uma boa prática: sempre que conseguirmos quebrar em arquivos menores, para que consigamos ler o arquivo com uma facilidade maior, sempre é bem-vindo. Então vamos trabalhar nisso no próximo vídeo.
+
+@@06
+Refatorando Views
+
+É comum, durante o desenvolvimento do projeto, identificarmos alguns potenciais problemas, como: arquivo muito extenso, regras de difícil compreensão, arquitetura, entre outros. Com base no que vimos na aula, marque as alternativas que justifiquem a refatoração.
+
+
+Alternativa correta
+O arquivo da View estava ficando muito extenso.
+ 
+Correto! Sempre que você notar que o arquivo está muito extenso ou o código está difícil de entender, é uma boa prática separar um tempo para fazer os ajustes necessários no projeto.
+Alternativa correta
+Responsabilidades distintas entre views.
+ 
+Correto! Para dar manutenção no código, é muito melhor cada um estar separado em arquivos diferentes.
+Alternativa correta
+O arquivo ContentView deve ter o mínimo de linhas possíveis.
+
+@@07
+Refatorando as Views
+
+[00:00] Nesse vídeo, nós vamos começar a refatoração que eu havia comentado com você no vídeo anterior, onde nós falamos de boas práticas e quebra de arquivos. Nós temos aqui várias responsabilidades na mesma View, temos aqui a "ContentView", que é a View principal, onde nós temos o header, que é toda essa implementação aqui: "VStack Header", desde aqui até esse ".offset" ": -25", onde subimos os botões aqui um pouquinho para cima.
+[00:33] Depois nós temos aqui a lista, nós temos aqui a célula. Então tudo isso dentro do mesmo arquivo, está uma salada e está tudo bem misturado. Então vamos começar a separar e dividir as responsabilidades de cada View em um arquivo diferente. Vamos começar então mexendo com o header do nosso app. O que vamos fazer aqui? A ideia é que tiremos todo esse pedação de código - vou selecionar desde esse "Mark: - VStack Header", então cliquei aqui, vou descer até esse ".offset" com o eixo "(y: -25)".
+
+[01:17] Então nós vamos selecionar todo esse bloco de código. Eu vou apertar aqui a tecla "Command + X" para recortar isso daqui. Repara que agora o arquivo ficou bem mais enxuto, ele está listando apenas a TableView sem o header, porque nós acabamos de tirar. Eu vou começar a montar então aqui um novo arquivo, chamado HeaderView. Só para manter mais organizado, eu vou criar uma pastinha aqui com o nome Views.
+
+[01:50] Então todas as Views, vamos manter dentro dessa pasta que eu vou criar. Então botão direito em cima do nome do projeto, em seguida vamos clicar aqui em New Group, novo grupo novo. Repara que foi criada uma nova pasta, vou chamar aqui de "Views". Essa pastinha eu vou deixa aqui, embaixo de Models. Eu vou passar esse "ContentView" para dentro dela, que é a View principal.
+
+[02:19] Em seguida eu vou criar então um novo arquivo, que é o arquivo relacionado ao header. Então botão direito, novo arquivo. Ele abre a caixa de diálogo aqui, nós vamos manter selecionada essa opção SwiftUI View, então é importante você ter certeza que é essa opção que está selecionada. Se estiver, você vai dar um Next e vamos chamar aqui colocando o nome do arquivo.
+
+[02:47] O nome vai ser "HeaderView". Beleza, agora que eu coloquei o nome, eu vou então clicar em Create. Bacana, ele cria um arquivo muito parecido com o ContentView. Nós temos aqui o nome do nosso arquivo, que implementa o protocolo View, e ele nos traz essa variável computada "body", que nada mais é do que uma View. O que vamos começar fazendo é: colocar aqui um StackView Vertical, "VStack", que é o Stack principal.
+
+[03:22] E dentro dele, nós vamos colar toda a implementação do header que nós temos. Então eu colei tudo aqui, ele vai reclamar por vários pontos do código, porque ele vai tentar acessar essa variável View que nós temos aqui. Então ele está reclamando que ele não está achando a referência e ele não está conseguindo então gerar a pré-visualização. Da onde vem essa View?
+
+[03:53] Então vou voltar aqui no arquivo principal. Essa View vem justamente desse objeto, o "GeometryReader", o leitor de geometria. Esse objeto nós utilizamos para setar provavelmente uma largura e por isso nós utilizamos então esse objeto. Podemos fazer o mesmo aqui, então nós vamos utilizar esse mesmo objeto nesse arquivo HeaderView. Então "GeometryReader", leitor de geometria.
+
+[04:24] Aqui eu coloco o nome dele, "{ view in" e dentro eu coloco toda a implementação do StackView que nós temos. Então vamos lá. Todo esse espaço aqui. Selecionei todo esse bloco de código, colo ele aqui, vou clicar aqui em Resume, no lado superior direito, para que consigamos ver a pré-visualização e também identificar se não tem nenhum erro no nosso código.
+
+[04:56] Aparentemente não, ele já exibiu aqui o header. Uma dica bacana para você conseguir enxergar exatamente o tamanho do componente que nós estamos renderizando, que nós estamos construindo, é mexermos na pré-visualização. Então repara que aqui, ele simula um iPhone inteiro, sendo que o nosso componente, ele tem um valor fixo, ele tem uma altura fixa.
+
+[05:22] Nosso componente, ele tem uma altura de aproximadamente 400 de altura, então conseguimos mexer nessa pré-visualização. Então olha só, que bacana que fica. Aqui, onde nós temos o "HeaderView", nós conseguimos fazer o seguinte: eu consigo dar um ".preview", ".previewLayout" mesmo, vamos colocar um valor fixo. Esse valor vai ser 400 de largura por 220, aproximadamente, de altura.
+
+[05:56] Quando eu faço isso, ele automaticamente muda o lado direito da pré-visualização, mostrando apenas o espaço onde nós desenhamos o nosso header. Então agora o nosso código ficou bem melhor, porque nós dividimos a responsabilidade do header, colocamos aqui apenas o que é referente ao header. E, no arquivo principal, que é esse ContentView, ele ficou também bem mais enxuto.
+
+[06:25] Vou clicar aqui em Resume. Ele ficou bem mais enxuto. Por enquanto ele está mostrando apenas a lista, no próximo vídeo vamos continuar a refatoração, falando um pouquinho da célula e também implementando novamente o header aqui dentro. Até o próximo vídeo.
+
+@@08
+Separando as responsabilidades das Views
+
+[00:00] De volta com o nosso projeto, no vídeo anterior nós começamos a refatoração da ContentView, que é a View principal do nosso projeto, e, para finalizar essa aula, nós vamos também separar a célula em um novo arquivo. Então, para terminar, vamos selecionar aqui o nosso Vertical StackView. Então eu vou selecionar toda essa parte aqui embaixo da "List", vou recortar, "Command + X" e eu vou criar um novo arquivo, onde nós vamos implementar a criação da célula.
+[00:34] Botão direito em cima da pastinha View, novo arquivo. Aqui vamos manter a opção SwiftUI selecionada e eu vou nomear esse arquivo como "CelulaViagemView", Create. Ele, por default, por padrão, já traz duas estruturas que nós já conhecemos, que é a estrutura onde tem a variável "body", que nós desenhamos a tela, e também a estrutura de pré-visualização.
+
+[01:04] Para começar, vamos tirar esse texto, que nós não vamos utilizar aqui e vamos colar a implementação da célula da nossa lista dentro desse arquivo. Ele vai aprontar aqui alguns erros, principalmente porque nós não temos esse identificador "viagem", nós não temos nenhuma variável do tipo viagem para utilizar aqui, então vamos começar criando essa variável.
+
+[01:31] Aqui, em cima do "body", eu vou criar uma variável chamada "viagem", que é o mesmo nome que nós estamos utilizando aqui. Essa variável é do tipo "Viagem" e quando nós estamos utilizando uma struct, nós não precisamos criar um método construtor, ele automaticamente já infere e conseguimos então passar essa variável sempre que necessário, que é exatamente o que a pré-visualização está chamando a nossa atenção.
+
+[02:05] Eu vou clicar aqui para corrigir o problema, ele fala que agora, para utilizar a "CelulaViagemView" nós precisamos passar uma "viagem". Eu vou utilizar a lista de viagens que nós já temos, na posição "[0]", que é a primeira, só para conseguirmos então montar a nossa célula. Bacana, já colei aqui implementação da célula, criei aqui uma variável do tipo "viagem" para utilizar aqui.
+
+[02:29] Agora vamos voltar na célula - na célula não, na View principal, que é a ContentView e nós vamos utilizar essa célula. Então "CelulaViagemView", que nós acabamos de criar, eu vou inicializar ela passando a "viagem". Então aqui eu preciso passar uma "viagem", que é exatamente o que a nossa lista está iteirando. Legal, vou clicar aqui em Try Again para ele tentar renderizar.
+
+[03:05] Ele vai gerar um build e vai atualizar aqui a pré-visualização. Bacana, então nós já separamos responsabilidade das células, agora o que precisamos é voltar a implementar o header. Repara que tiramos ele no vídeo anterior e ainda não colocamos de volta. Eu vou colocar aqui a chamada do header, "HeaderView". Bacana. Repara que ficou um espaçamento em branco e ele ficou um pouco maior, a altura do header ficou um pouco maior do que o necessário.
+
+[03:45] Para corrigir esse problema, vamos então utilizar o método ".frame", que nós já conhecemos, onde nós vamos passar então uma altura fixa para o nosso header. Então vamos lá, aqui embaixo do header vou chamar um ".frame", a largura vai ser a própria largura da tela, então "view.size.width". A altura nós vamos deixar com o valor de 200 e o alinhamento no topo.
+
+[04:18] Isso já vai resolver o tamanho do header. A última coisa que eu queria mostrar para você é aqui, na parte da pré-visualização da célula. Repara que nós criamos uma célula com uma altura fixa, que é uma altura menor do que o tamanho do device que nós estamos utilizando aqui na pré-visualização. Sempre que isso acontecer, nós podemos alterar o tamanho da pré-visualização, nós já vimos isso no vídeo anterior, onde nós utilizamos a pré-visualização do header, que é essa parte aqui.
+
+[05:00] Então eu clico em Resume, ele renderiza apenas o tamanho que nós configuramos aqui nesse “.previewLayout”. Vamos fazer a mesma coisa com a célula, para deixar do tamanho certinho da pré-visualização. Então vou utilizar esse método ".previewLayout", só que eu vou alterar a largura e a altura. A largura, eu vou deixar por 350 e altura 200. Vou clicar aqui em Resume novamente.
+
+[05:30] Ele vai atualizar e vai mostrar apenas o tamanho da célula que nós configuramos aqui no ".previewLayout". Bacana, com isso terminamos então essa parte de refatoração, onde o objetivo foi mostrar para você que sempre que você perceber que a View ou o seu arquivo de regra de negócio, ele está crescendo ou está ficando difícil de você ler e entender aquele código, separa um tempinho, pensa no que você pode fazer de diferente para melhorar a legibilidade, para melhorar o nome das variáveis.
+
+[06:09] Ou, se o arquivo estiver ficando muito grande, que era o nosso caso aqui nesse ContentView, separamos a responsabilidade de todas as Views em outros arquivos, com isso deixamos o arquivo bem enxuto, agora batemos o olho, já sabemos que temos aqui alguns componentes separados. Tudo isso nos ajuda a deixar o nosso trabalho melhor, o nosso projeto com uma qualidade ainda melhor.
+
+[06:34] Então é muito importante e é uma boa prática sempre que possível trabalharmos com esse tipo de refatoração. Fechamos então essa aula, no próximo vídeo vamos começar a testar o layout, que nós desenvolvemos até agora, em outros devices, em outros tamanhos de iPad, de iPhone. E vamos começar então a ver o que vai acontecer com o nosso layout nesses outros devices. Nos vemos então no próximo vídeo.
+
+@@09
+Consolidando seu conhecimento
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você implemente o que foi visto no vídeo para poder continuar com o próximo capítulo que tem como pré-requisito todo código aqui escrito. Se por acaso você já domina esta parte, em cada capítulo você terá a opção de baixar o projeto feito até aquele ponto. Você encontrará o link para download na próxima explicação do capítulo.
+
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
+
+@@10
+Download do projeto
+
+Dica: Clicando no link a seguir, você consegue fazer o download do projeto.
+
+https://github.com/alura-cursos/alura-viagens-swiftui/archive/3fb5e11603218eb507f7154eea07ad054cd82134.zip
+
+@@11
+O que aprendemos?
+
+Nesse capítulo, aprendemos a:
+criar novas views;
+refatorar a View principal;
+criar células customizadas para lista.
