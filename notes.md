@@ -664,3 +664,196 @@ Nesse capítulo, aprendemos a:
 criar novas views;
 refatorar a View principal;
 criar células customizadas para lista.
+
+#### 08/08/2023
+
+@04-Testando em outros dispositivos
+
+@@01
+Testando em outros devices
+
+[00:00] A ideia dessa aula é ajustarmos o nosso projeto para que ele se adeque a diferentes tamanhos de devices, como iPhones e iPads. Como já vimos nos capítulos anteriores, ao modificar o iPhone, na parte superior aqui do Xcode, onde ele nos fornece alguns simuladores diferentes, a pré-visualização é alterada automaticamente. Vamos começar trocando simulador para o iPad Pro 11. Quando eu seleciono o iPad Pro 11, ele vai recarregar e ele mostra aqui, na pré-visualização.
+[00:35] Eu vou até diminuir aqui um pouquinho o zoom, na parte inferior, vou deixar aqui com 75%. Ele mostra então o nosso aplicativo na versão do iPad. Como pode perceber, o layout para iPad não ficou muito legal, temos problemas de tamanhos de labels, as imagens aqui, elas ficaram um pouquinho distorcidas e o alinhamento dos botões no header também não ficou muito legal.
+
+[01:06] Por isso a ideia desse vídeo é começarmos a corrigir problemas do header, então vamos começar por essa parte aqui de cima. Então vamos abrir o arquivo responsável pela construção do layout do header. Eu vou abrir aqui o menu da esquerda e vou selecionar o HeaderView. Vou puxar aqui um pouquinho mais para o lado, vou fechar a parte do menu da esquerda.
+
+[01:33] Então vamos começar analisando a label "("alura viagens")", que é essa labelzinha aqui, que no SwiftUI chamamos de "Text". Um dos problemas é exatamente esse campo aqui, "size". Temos aqui o "size: 20". Esse tamanho é utilizado para qualquer tipo de dispositivo que nós buildarmos aqui no nosso projeto, então pode ser uma iPad, pode ser um iPhone, iPhone Pro, qualquer um que seja o device, o tamanho vai ser 20.
+
+[02:03] A ideia é configurar um tamanho para iPhone, nesse caso podemos deixar 20 mesmo, e outro para iPad. Se você acompanha os cursos aqui da Alura, no curso de Layouts Responsivos com o UIKit, onde nós construímos esse mesmo aplicativo, só que com o UIKit, nós falamos sobre Constraints e lá aprendemos um pouquinho sobre size class, que nada mais é do que tamanho de classe.
+
+[02:32] É uma nomenclatura que a Apple usa para explicar a diferença dos tamanhos entre iPhone e iPad, basicamente. Agora vamos então relembrar um pouquinho sobre size class - size class, vou digitar aqui e entrar na documentação da Apple. Ele nos dá aqui algumas informações interessantes a respeito desses tamanhos e dessa nomenclatura, que nos ajuda a entender. Então quando falamos em size class, basicamente temos dois tipos: o Regular e o Compact.
+
+[03:07] Então aqui estamos vendo as orientações em Portrait, significa que é o iPhone ou o iPad, quando ele está em pé e aqui temos a orientação em Landscape, que basicamente é o iPad e o iPhone deitado, na Horizontal. Se formos olhar aqui o Portrait, que é o nosso caso, que é o iPhone e o iPad em pé, temos aqui o tamanho Regular para largura e Regular para altura. Então o iPhone - na verdade o iPad Pro 11 em Portrait, ele é Regular, Regular, largura regular e altura regular.
+
+[03:52] O iPhone, ele é Compact na largura - Compact, compacto - e altura é Regular, então o iPhone é um pouquinho diferente. Isso nos dá algumas opções para que configuremos o tamanho da fonte, por exemplo, de acordo com a orientação e o size class do dispositivo. Ou seja, conseguimos identificar se é um iPhone ou se é um iPad basicamente por esses tamanhos aqui de classes.
+
+[04:25] Geralmente o iPad é Regular Regular e o iPhone é Compact Regular, no caso de Portrait. No Landscape muda um pouquinho, mas sempre que você tiver alguma dúvida em relação à essas nomenclaturas de size class é só dar uma olhadinha aqui na documentação que ajuda bastante a entender. Agora que fizemos uma rápida revisão desses nomes um pouquinho desconhecidos, vamos começar a utilizar essas nomenclaturas.
+
+[04:56] E você vai ver que não é difícil e é bem usual, vamos começar a criar e vamos memorizar rapidinho esses nomes. Então o que eu vou fazer? Eu preciso saber se o dispositivo é um iPad ou um iPhone. Para isso, eu utilizo o size class, que é a nomenclatura Regular ou Compact. Então vamos fazer o seguinte: vamos criar uma variável de ambiente, então por isso eu vou usar essa palavra chave aqui "Environment".
+
+[05:33] Ela nos permite saber qual é, por exemplo, o horizontal size class, ou seja, esse tamanho aqui, o horizontal size class. Como é que eu faço isso? Eu utilizo essa sintaxe, onde eu vou procurar saber se é horizontal ou vertical, no caso aqui estamos validando se é horizontal. E eu crio uma variável com o nome que eu quiser, como por exemplo "horizontalSizeClass". Basicamente é isso.
+
+[06:16] Essa variável que eu criei, ele vai consultar qual é o tamanho da classe do device que nós estamos simulando. Com isso fica um pouquinho mais fácil, porque olha só o que eu posso fazer agora: onde eu tenho aqui essa configuração do tamanho de fonte com 20, eu posso criar uma verificação aqui, de acordo com o "horizontalSizeClass". Como é que eu faço isso? Vou apagar esse 20, eu vou chamar essa variável que eu acabei de criar: "self.horizontalSizeClass" e eu verifico com um if ternário se ele é Compact, por exemplo.
+
+[06:52] ".compact". Se for Compact, eu vou querer deixar o tamanho 20. O que é Compact mesmo? Compact é a nomenclatura utilizada, no caso de Portrait, para os iPhones. Então olha só: se a largura for Compact, ou seja, se a largura for compacta, eu sei que é um iPhone; se a largura for Regular, basicamente eu sei que é um iPad. Então eu vou utilizar essa verificação aqui: se for Compact, ou seja a largura de um iPhone, tamanho 20; se for algo diferente disso, ou seja, Regular, no caso para iPad, eu vou utilizar o tamanho da fonte 30.
+
+[07:40] Basicamente é isso que eu vou utilizar. Apaga aqui o espaço. Bacana, então vamos conferir essa alteração clicando aqui em Resume. Repare que a fonte que nós estamos alterando é fonte "("alura viagens")". Eu vou clicar aqui, ele vai tentar fazer o reload. A fonte já ficou um pouquinho maior, significa que ele já está obedecendo o tamanho de classe que nós estamos validando.
+
+[08:11] Legal, então nós vamos continuar alterando o tamanho dos próximos textos: Especial e Brasil, utilizando a mesma lógica. Então o que eu vou fazer? Em "("ESPECIAL")", é esse próximo texto aqui, eu vou verificar o tamanho dele. Texto "("ESPECIAL")", cor do texto, fonte - size está aqui. É o mesmo problema, o tamanho está fixo. Então vamos utilizar a mesma verificação ".self.horizontalSizeClass=", ela é igual a ".compact"?.
+
+[08:49] Se for igual à Compact, nós vamos continuar utilizando o tamanho 20, se não for Compact, ou seja, se for iPad, eu vou utilizar um tamanho de fonte um pouquinho maior, como por exemplo, 30. A mesma coisa para o texto "(BRASIL)". Texto "(BRASIL")", aqui eu mudo a cor do texto, aqui eu mudo a fonte e aqui está o tamanho. O mesmo esquema, aqui nós estamos utilizando 23 fixo para qualquer dispositivo, vamos fazer a verificação "self.horizontalSizeClass". Se for igual a compacto, o que eu vou fazer?
+
+[09:29] Vou continuar utilizando 23. Se não for, eu vou utilizar o tamanho 33. Bacana, então nós já começamos a resolver esses problemas de tamanho, de layout. Eu vou rodar aqui, no simulador mesmo. Eu estou aqui com o meu iPad configurado e eu vou gerar um build então para conferirmos e vermos de fato, no simulador, como é que está ficando. Então vamos aguardar o build.
+
+[10:07] Olha só: a fonte nós já conseguimos alterar, então ela já está um pouquinho maior, Especial também, Brasil também, isso está ok. Os próximos passos são: alterar o posicionamento e tamanho do botão, aumentar um pouquinho o header e depois começar a mexer então na célula da tabela. Só para você conferir, eu vou gerar um build novamente aqui, com um iPhone 8, para você ver que na versão do iPhone ele continua com o mesmo tamanho.
+
+[10:44] Então repara que realmente o size class nos ajuda a identificar qual é o dispositivo. iPhone continua normalmente, iPad já está então setando a configuração de fonte que nós acabamos de implementar. No próximo vídeo então vamos continuar mexendo no header e fazendo as devidas verificações. Até já.
+
+@@02
+Testando o app com iPad
+
+[00:00] No vídeo anterior estávamos criando validações de acordo com o size class, ou seja, o tamanho de classe do dispositivo. Nós já começamos então mexendo aqui na fonte de alguns Texts, como, por exemplo, do texto "("alura viagens")", "("ESPECIAL")" e "("BRASIL")" de acordo com a variável de ambiente que nós criamos. Fizemos também uma rápida revisão do conceito de tamanho de classes, vimos Compact e Regular, a diferença entre esses dois termos, amplamente utilizados aqui.
+[00:33] E continuando, agora nós precisamos alterar o tamanho da fonte do botão e o alinhamento dos botões Hotéis e Pacotes. Vamos começar alterando a altura do botão Hotéis de acordo com o seu size class. Então o que vamos fazer? Vamos identificar onde estão esses botões, Brasil - na verdade, Hotéis e Pacotes. O primeiro botão, ele está aqui, botão "("Hotéis")", e o botão "("Pacotes")" está aqui embaixo.
+
+[01:10] Vamos lá então. Temos o mesmo problema, que é a questão do tamanho da fonte. Podemos alterar a fonte de acordo com o tamanho de classe, de acordo com o size class. Para isso, vamos utilizar a variável de ambiente que nós acabamos de criar, que é a "horizontalSizeClass". Fazemos um if ternary: se ela for igual ao tamanho compacto, que é o tamanho usado em iPhone, no caso de horizontal, nós continuamos com o mesmo tamanho.
+
+[01:46] Se não, o tamanho vai ser 24. Aqui ele está quebrando um pouquinho o layout porque estamos utilizando a pré-visualização com iPad. Nós poderíamos também alterar aqui o tamanho para nos ajudar, então, por exemplo, eu poderia deixar aqui 400 e uma largura um pouquinho maior - você consegue ir acompanhando o tamanho de acordo com a View que você está configurando.
+
+[02:15] Nesse caso, como nós vamos utilizar o simulador, eu vou rodar daqui a pouco e já vamos conferindo as alterações. Vamos mexer também na fonte do botão Pacotes. É a mesma validação, então vou utilizar aqui a variável de ambiente "horizontalSizeClass". Se for igual a compacto, vamos manter o mesmo tamanho, que é 17, e se não for, 24. Bacana, vou rodar aqui o simulador, vamos conferir as alterações do botão Hotéis e do botão Pacotes.
+
+[02:58] Repara que a fonte já foi alterada, então a configuração do size class está funcionando perfeitamente. Agora precisamos corrigir o alinhamento. Repare que nessa versão do iPad, os botões ficaram alinhados perto das bordas. Então eu tenho aqui o botão Hotéis, que está perto da borda, e o Pacotes também. Vamos alinhar então o botão Pacote. O que vamos fazer com o alinhamento?
+
+[03:28] Vamos utilizar essa opção do ".offset", que na verdade é esse espaço que ele dá de 50, que nós configuramos quando nós estávamos desenvolvendo o layout para iPad. Esse valor 50 representa esse espacinho aqui entre essa margem do botão e a margem esquerda do simulador. Então vamos utilizar uma validação. Qual vai ser essa validação? Vamos dividir o tamanho aqui por 4, do header, a largura dele: dividido por 4 temos exatamente o tamanho que nós queremos deixar aqui no alinhamento.
+
+[04:17] No caso, nessa opção ".offset". Então, o que eu vou fazer? Para eu conseguir dividir a largura dessa View roxa aqui por 4, eu preciso ter acesso à View. Nós já temos acesso à View. Então o que eu vou fazer aqui? Primeiro eu vou apagar esse valor fixo e vou fazer a verificação, que nós já estamos acostumados a fazer: se for "horizontalSizeClass" - se for igual a compacto, eu vou utilizar o valor que já estava, nós não vamos mexer, o valor continua sendo 50.
+
+[04:52] Se for iPad, eu vou pegar a "view.size", eu vou pegar aqui a largura e eu vou dividir por 4, aí eu consigo ter exatamente o valor do espaçamento que eu preciso. A mesma coisa com o botão Pacotes: aonde eu tenho aqui o valor negativo, de ": -50" - negativo por quê? Porque ele vai pegar esse espaço para trás, então é ": -50", para que ele fique nesse espacinho aqui. Nesse caso, nós vamos utilizar ": -50" se for compacto.
+
+[05:31] Então ".horizontalSizeClass", se for igual a compacto, ele continua ": -50". Se não for, eu vou deixar negativo o valor da divisão da largura da View e ele vai conseguir então um posicionamento baseado na divisão da largura dessa View. Vou rodar aqui mais uma vez no simulador, para conferirmos. Repara que agora ele está posicionado de acordo com a divisão que nós fizemos aqui, ficou bem melhor do que ele perto das bordas.
+
+[06:23] Porém ainda não terminamos. O tamanho do header, ele ainda ficou um pouquinho estranho, olha a altura dele. Então vamos fazer o seguinte: vamos mexer no header, só que dessa vez vamos mexer onde chamamos ele, na View principal, no arquivo "ContentView", nós temos aqui o header, onde nós temos o método ".frame" e aqui temos um tamanho fixo de 200, aproximadamente 200 a 220.
+
+[06:55] Vamos precisar alterar então esse valor fixo de 200, porque esse valor de 200 funciona bem no caso de iPhone, iPad ele fica um pouquinho quebrado. Então vamos mexer exatamente nesse valor. Primeiro eu vou criar aqui uma variável de ambiente, igual nós fizemos no outro arquivo. A sintaxe é um pouquinho diferente, eu começo com "@Environmnet", eu digito o tipo de tamanho de classe que eu quero, no caso eu quero verificar "horizontalSizeClass".
+
+[07:36] E aqui eu crio uma variável com o nome que eu quiser: "horizontalSizeClass". Com essa variável, eu já posso então fazer a alteração que eu preciso, que é tirar esse valor fixo. Então qual é a ideia? Eu vou chamar aqui "horizontalSizeClass", verificar se ele é compacto. Se for, vamos continuar deixando 200, se não for, vamos deixar um tamanho um pouquinho maior, de 310. Só que como nós alteramos aqui, no header nós também deixamos um valor para a altura, onde também nós precisamos verificar.
+
+[08:23] Então a altura do header, olha só, eu tenho aqui o método ".frame", onde eu tenho uma altura de 180, na verdade aqui podemos deixar 200, igual estava lá. Só que eu vou fazer a mesma verificação: se for "horizontalSizeClass", ": 200", se não for, ": 310". Então ele vai ficar um pouquinho maior, de acordo com o tamanho de classe. Para testar, vou rodar aqui mais uma vez o simulador, vamos acompanhar as alterações.
+
+[09:03] Então ele ficou um pouquinho maior, muito bom. Repara que o tamanho do botão Hotéis e do botão Pacotes ficou um pouco pequeno, vamos alterar isso no próximo vídeo, e também vamos mexer no espaçamento da label em relação à margem superior. Uma dica é sempre que você estiver implementando esse tipo de validação, roda também o seu projeto em um iPhone, para ter certeza que você colocou a validação corretamente, não colocou direto o valor para o iPad, ou seja, caso você tenha esquecido, você já pega aqui a diferença.
+
+[09:45] Olha só, então repara que para iPhone continua com o tamanho original, que nós configuramos, e para iPad ele também já está ficando um pouquinho melhor. No próximo vídeo então vamos continuar mexendo no tamanho desses dois botões aqui e também no posicionamento dos textos. Nós continuamos a seguir.
+
+@@03
+Configurando tamanhos com @Environment
+
+[00:00] Nós estamos trabalhando então com size classes, tamanho de classes, onde nós conseguimos identificar, por exemplo, se o device é um iPhone ou é um iPad, e a partir disso nós conseguimos tratar o tamanho, o posicionamento e qualquer outra configuração que nós identificarmos no nosso layout. Nós estamos trabalhando então no header, nós já fizemos algumas alterações no vídeo anterior, onde nós mexemos no tamanho e posição dos Texts.
+[00:32] Porém ainda não terminamos de mexer nos botões e tudo mais. Antes de continuarmos, como você pode ver, a pré-visualização aqui ficou um pouquinho estranha, porque nós estamos alterando as configurações baseado na nossa variável de ambiente "horizontalSizeClass" e não conseguimos ver se a pré-visualização é de um iPhone ou de um iPad, e fica um pouquinho confuso.
+
+[00:58] Vamos resolver isso mexendo nessa "struct" aqui, "HeaderView_Previews:", onde temos um header como valor fixo também de largura e altura, por isso que está dando esse probleminha. A ideia é nós temos aqui duas Views do tipo "HeaderView": uma configurada para iPhone, para a visualização para iPhone, e a outra para iPad. Vamos conseguir fazer essa verificação baseado também no size class.
+
+[01:28] Então vamos começar: primeiro passo é mexermos aqui na pré-visualização. Nós vamos então criar aqui um grupo, nós vamos agrupar as duas Views, baseado nessa estrutura "Group". Dentro dessa estrutura, eu vou colocar o que nós já temos, que o header, então eu vou colocar aqui o nosso header. Esse header, ele também está com o tamanho fixo, que ele funciona bem quando nós estamos vendo, por exemplo, em um iPhone.
+
+[01:57] Então eu vou justamente setar essa configuração de ambiente "Environment". Aqui, eu vou pedir para ele exibir essa View caso seja a classe do tamanho de classe Compact, ou seja, um iPhone. Como é que eu faço isso? A mesma sintaxe que nós declaramos essa variável aqui em cima: "." e o tipo de classe que eu quero verificar.
+
+[02:20] Então vamos lá: ".horizontalSizeClass,", o valor dela que eu quero comparar é o ".compact", ou seja, normalmente de um iPhone. Então ele já modificou aqui a pré-visualização, como você pode ver. Dentro desse grupinho, ele permite que eu agrupe outras Views, então eu vou utilizar aqui o comando de cópia, para ganhar tempo. Vou utilizar aqui uma outra View.
+
+[02:53] A diferença dessa View é o tipo de classe que eu quero que ele identifique: aqui nós verificamos se ele é compacto, aqui nós vamos verificar se ele é regular - ".regular". Se for regular, eu sei que nós estamos mexendo com um iPad, então eu posso aumentar, por exemplo, o tamanho. Ao invés de eu deixar fixo, eu vou deixar um tamanho um pouco maior, aqui por exemplo, ": 835" e altura, vou colocar aqui ": 310".
+
+[03:24] Repara que agora fica muito mais fácil de eu conseguir identificar as alterações e também ir conferindo as mudanças. Então, no vídeo anterior, nós mexemos aqui já no tamanho dos Texts, gora vamos seguir mexendo um pouquinho aqui no posicionamento da label do canto superior, ao topo, para que ele fique mais ao centro, essa label Especial e Brasil, e, para finalizar, também nós vamos mexer no posicionamento e no tamanho dos botões.
+
+[03:57] Legal, então vamos lá. A primeira coisa que vamos fazer é identificar onde está essa label, ou seja, esse texto alura viagens. Ele se encontra aqui em cima, foi um dos primeiros que nós já criamos e mexermos, e vamos começar então mexendo um pouquinho aqui ".padding". O padding é a distância que ele dá, baseado em uma margem que eu coloco aqui, no caso no topo, então a distância do topo com 50 pontos.
+
+[04:29] Só que esses 50 funciona bem quando nós estamos vendo um iPhone. Para iPad, vamos aumentar um pouco esse espaçamento, para que essas labels aqui fiquem mais ao centro do nosso header. Então é isso que vamos fazer. É um pouquinho repetitivo o trabalho aqui, que é verificar, nada além disso. Então eu vou verificar se é do tamanho compacto.
+
+[04:54] Se for compacto, eu vou continuar colocando valor de 50, se não for, eu vou colocar aqui, por exemplo, ": 90". Repara que ele aumentou o valor entre o topo do texto e a margem superior. Beleza, o próximo passo então é alterarmos o tamanho dos botões Hotéis e Pacotes. Então vamos lá. Eu vou descer aqui mais um pouquinho, aqui embaixo temos o nosso botão Hotéis, é um botão.
+
+[05:29] E logo embaixo nós temos aqui o Frame. Nós temos aqui então o mesmo probleminha que é o tamanho fixo. Nós precisamos alterar a largura e alterar a altura baseado no tamanho de classe - Compact ou Regular, para iPad. Então vamos lá, a mesma verificação: se o "horizontalSizeClass" for compacto, o que nós vamos fazer aqui? Nós vamos continuar com o mesmo valor que era 100, se não for, ": 150".
+
+[06:05] Nós estamos mexendo aqui na largura. Repara que na pré-visualização, que a largura do nosso botão já aumentou em relação ao botão Pacotes. Agora nós precisamos alterar a altura. A altura vai ser o mesmo esquema: vou recortar esse 50, vou colocar aqui mais uma verificação "horizontalSizeClass", se for compacto mesmo valor, se não for, nós vamos utilizar aqui ": 75".
+
+[06:36] Bacana, olha só o tamanho que ficou o botão em relação ao botão Pacotes, já está muito melhor quando utilizamos a visualização do iPad. Agora a mesma coisa, nós vamos alterar aqui o Frame do texto, na verdade do botão Pacotes. Ele ficou bem menor que o Hotéis, vamos deixar com as mesmas verificações. Então vamos lá. Vou chamar aqui a nossa variável de ambiente, verificar se é compacto.
+
+[07:09] Se for, eu continuo com 100, se não for, ": 150". A altura, a mesma coisa: se for compacto, continuamos com 50, senão for, ": 75". Legal, olha só o tamanho dos botões, já estão bem mais bonitos e maiores em relação à visualização do iPad. Só que quando nós alteramos a altura, por exemplo, do botão, nós perdermos o alinhamento, como você pode ver aqui na pré-visualização, aqui de cima: o final da View roxa, desse StackView aqui, ele tem que dar de encontro ao meio do botão Hotéis.
+
+[07:53] Quando nós mexemos na altura do botão, repare que ele não está mais ao centro, ele está um pouquinho acima, então está um pouquinho torto. Vamos alterar isso mexendo no offset, que é o espaçamento que nós demos aqui de -25, que funciona muito bem quando o tamanho de classe é compacto, ou seja, é um iPhone. Agora vamos precisar fazer uma outra validação, porque se for iPad nós temos que puxar esses dois botões um pouquinho mais para cima, para que ele fique bem no centro.
+
+[08:24] Como é que chegamos a esse valor 25? Nós chegamos a esse valor porque nós precisamos subir os botões a metade da altura, então a altura do botão quando nós estamos trabalhando com o iPhone é 50, metade de 50 é 25. E quando nós estamos trabalhando com o Ipad, nós criamos aqui uma outra verificação por botão, que a altura é 75, então a metade de 75 é 37,5. Então, quando for iPad, nós temos que subir - 37,5.
+
+[09:00] Essa é a lógica que nós vamos aplicar aqui. Bacana, então eu vou utilizar a variável de ambiente que nós já temos, que é o nosso UserInterfaceSizeClass, que é o "horizontalSizeClass", se for compacto nós vamos continuar utilizando o -25, que é a metade da altura do botão. Se não for, a metade de 75, que no caso que é 37,5, ": 37.5", só que aqui é menos, ": -37.5".
+
+[09:36] Agora sim, o nosso botão ficou exatamente alinhado à margem inferior do StackView roxo. Bacana, para conferir então todas essas alterações que nós fizemos aqui no header, eu vou buildar primeiro aqui no iPhone, para vermos se continua igual, se não esquecemos nenhuma verificação para trás. E depois nós vamos rodar o simulador também do iPad. Então ele está subindo aqui a aplicação.
+
+[10:12] Legal, a princípio não temos nenhuma quebra de layout, não esquecemos de nenhuma verificação. Eu vou agora buildar aqui no iPad Pro 11, por exemplo. Eu vou rodar aqui o simulador. Legal, então só: o header, aparentemente, está funcionando bem nos dois casos, tanto no iPhone quanto no iPad. Nós temos o tamanho das labels, o posicionamento dos botões e o tamanho também dos botões alterados de acordo com o size class do dispositivo.
+
+[10:48] No próximo vídeo vamos continuar alterando os componentes de baixo da célula, como você pode ver, a imagem ficou distorcida, o tamanho dos textos aqui dentro da célula também não está muito legal. Então vamos prosseguir criando essas verificações para deixar o nosso aplicativo responsivo para os dois casos. Nós continuamos a seguir.
+
+@@04
+Size classes
+
+Durante o curso trabalhamos com a proposta de criar um layout que se adapte tanto para iPhone quanto para iPad. Com base no que aprendemos em aula, como é possível customizar valores, como largura, altura, posicionamento entre outros, para que se redimensionem em dispositivos maiores, como por exemplo iPad?
+
+
+Alternativa correta
+Quando setamos valores fixos, eles se readaptam automaticamente quando ocorre a mudança de classe do dispositivo. Para isso precisamos utilizar a notação @Environment.
+ 
+Alternativa correta
+Podemos setar constraints nos elementos e mudar o valor de acordo com o size class.
+ 
+Alternativa correta
+Podemos criar uma variável de ambiente @Environment comparando o tamanho da classe tanto na vertical quanto na horizontal. Através dela, conseguimos saber o size class do dispositivo e fazer as verificações necessárias.
+ 
+Correto! O principal é identificar o size class do device e a partir disso fazer as verificações necessárias com os valores customizados.
+
+@@05
+Customizando o tamanho dos elementos da célula
+
+[00:00] Para finalizar essa aula, agora nós precisamos tratar o tamanho dos elementos de dentro da célula da nossa lista. Como você pode perceber, os textos, a imagem, ficaram um pouco distorcidos, e vamos alterar isso nessa aula. Então vamos começar mexendo nos textos, onde nós já fizemos algo parecido aqui no header, fazendo algumas verificações de acordo com o tamanho de classe e vamos seguir utilizando esse mesmo método, agora na célula.
+[00:36] Então vamos lá. O que eu vou fazer? Eu vou começar criando uma variável de ambiente para verificarmos o size class do device. Então é o mesmo esquema que nós já estávamos utilizando, a keyword "Environment". E o que precisamos fazer? "(/.", tipo de size class que queremos comparar, nesse caso é o ".horizontalSizeClass", e aqui declaramos uma variável com o nome que nós quisermos, então vou colocar aqui "horizontalSizeClass".
+
+[01:15] Bacana, isso nos possibilita começar a fazer as verificações nos textos, então eu vou aproveitar para mexer na fonte. Então vamos colocar, por exemplo, a fonte "Avenir", que é a fonte que nós já estamos utilizando no resto do projeto, e o ponto chave é exatamente essa parte, em size. Um bom tamanho para iPhone, por exemplo, seria 14. Mas nós não podemos deixar nesse tamanho fixo, porque nós também vamos utilizar o nosso aplicativo no Ipad. Então o que eu vou fazer?
+
+[00:01:49] Eu vou fazer uma verificação de acordo com o size class, "self.horizontalSizeClass", se for compacto, nós vamos utilizar o tamanho 14. Se não for, podemos colocar aqui, por exemplo, ": 24". Legal, a mesma coisa nós vamos fazer com esses dois textos aqui debaixo, então é a mesma ideia. Eu vou alterar a fonte, vai ser uma fonte customizada, a fonte vai a "Avenir", o tamanho vai ser de acordo com o size class, então aqui eu coloco a minha verificação, se for compacto, vamos colocar então o tamanho de 14, se não for, ": 24".
+
+[02:34] E a mesma coisa com o valor: ".font", fonte customizada "Avenir", o tamanho vai ser de acordo com o tamanho de classe. Se for compacto, 14, se não ": 24". Beleza, então nós já temos aqui algumas verificações, eu vou rodar o dispositivo para conferirmos. Eu estou aqui com o simulador do iPad e vamos ver então se o tamanho das fontes já foi alterado. Olha só que bacana: as fotos já estão um pouquinho maiores, já fica mais fácil a legibilidade para o usuário, fica agradável para entendermos aqui o contexto da célula.
+
+[03:20] Legal, agora o que nós precisamos fazer é alterar o tamanho dessa imagem. Esse tamanho está bacana, que é 125, quando nós estamos trabalhando com iPhone. Para iPad podemos aumentar um pouquinho, então eu vou fazer a mesma coisa: eu vou fazer aqui uma verificação, se for compacto, eu vou continuar utilizando 125, se não for, eu vou colocar aqui, por exemplo, ": 200". Vou rodar o app de novo, vamos conferir o tamanho se ficou ok. Olha só que bacana, o tamanho já está bem melhor do que estava.
+
+[03:59] Então com isso nós conseguimos alterar o tamanho da fonte. A última coisa que eu vou alterar é o estilo da exibição da imagem. Como você pode ver, em alguns casos a imagem ficou um pouquinho distorcida. Eu vou utilizar um estilo de preenchimento, que na verdade é um zoom que é aplicado na imagem para que ela fique um pouco mais agradável.
+
+[04:23] Olha só que bacana, aqui nós temos algumas coisas já na imagem, como por exemplo "resizable", o "frame" e nós vamos colocar agora um tipo de exibição, que chamamos "aspectRatio" aqui. Eu vou colocar um, que se chama ".fill", que é preenchimento. Então eu vou pedir para imagem ampliar e preencher o tamanho da célula, para que ela fique um pouquinho maior e não tão distorcida.
+
+[04:53] Só que vamos ver que tem um probleminha, olha só. Olha o tamanho que a imagem ficou, eu ampliei ela para que ela utilizasse o tamanho de preenchimento e eu vou pedir agora para recortar essa imagem no tamanho disponível que nós temos. Como ficou aqui bem grande, eu vou pedir para que ela recorte, assim conseguimos ter um tamanho mais agradável.
+
+[05:15] Para recortar a imagem, eu vou dar um ".clipped", então ele vai recortar baseado no tamanho disponível. Vamos rodar aqui o projeto novamente. Olha só: agora nós temos a imagem com uma visualização bem mais agradável, não está mais distorcida e através do clipped nós conseguimos cortar então a imagem de acordo com o tamanho que nós setamos.
+
+[05:40] Então, na verdade, aqui nós estamos dando meio que um zoom na imagem e aqui embaixo nós estamos cortando ela no espaço disponível. Agora nos finalizamos então o layout do nosso aplicativo para iPad, eu vou rodar mais uma vez aqui no iPhone para conferirmos se não quebrou nenhuma configuração. Lembra que sempre é uma boa prática nós rodarmos nos dois tipos de dispositivos, de preferência até em outros.
+
+[06:09] Por mais que a pré-visualização nos ajude na hora da construção do layout, é importante simularmos e, se for possível, até rodar em um device físico para conferirmos se está tudo de acordo com as nossas configurações. Então olha só que bacana: eu tenho um layout que ele se enquadra tanto no iPhone quanto no iPad.
+
+[06:29] A sacada dessa aula foi mostrar para vocês que é possível criar variáveis de ambiente. Nesse caso utilizamos essa "horizontalSizeClass", que é a verificação horizontal para descobrir se o que estávamos trabalhando era um iPhone ou um iPad. Mas também nós temos aqui outros tipos: nós temos o "verticalSizeClass", para conseguir fazer outros tipos de validações.
+
+[06:54] Com isso, fechamos a quarta aula e o que falta agora para fecharmos o projeto é aprendermos a trabalhar com navegação de telas. Então nós criamos aqui uma tela estática e quando eu clicar, por exemplo, em um destino, eu vou no mapa essa localização, com isso aprendemos então a criar a navegação. Eu vejo vocês no próximo vídeo.
+
+@@06
+Consolidando seu conhecimento
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você implemente o que foi visto no vídeo para poder continuar com o próximo capítulo que tem como pré-requisito todo código aqui escrito. Se por acaso você já domina esta parte, em cada capítulo você terá a opção de baixar o projeto feito até aquele ponto. Você encontrará o link para download na próxima explicação do capítulo.
+
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
+
+@@07
+Download do projeto
+
+Dica: Clicando no link a seguir, você consegue fazer o download do projeto.
+
+https://github.com/alura-cursos/alura-viagens-swiftui/archive/30329a1e04749f97269f905de90d1c87a2af5267.zip
+
+@@08
+O que aprendemos?
+
+Nesse capítulo, aprendemos a:
+trabalhar com size classes;
+utilizar variáveis de ambiente @Environment;
+criar validações para customizar o tamanho e posição dos elementos.
