@@ -857,3 +857,166 @@ Nesse capítulo, aprendemos a:
 trabalhar com size classes;
 utilizar variáveis de ambiente @Environment;
 criar validações para customizar o tamanho e posição dos elementos.
+
+#### 09/08/2023
+
+@05-Utilizando UIKit em SwiftUI
+
+@@01
+Componentes de UIKit com SwiftUI
+
+[00:00] Para finalizar o nosso curso, nessa última aula vamos mostrar para o usuário a localização de cada destino no mapa. Ou seja, quando ele clicar em Rio de Janeiro, nós vamos abrir o mapa, mostrar a localização do Rio de Janeiro. A mesma coisa com Ceará, Atibaia, Paraíba e os destinos que nós estamos listando aqui para o usuário.
+[00:20] Vamos começar então criando uma nova View, chamada "mapa", onde nós vamos implementar a lógica para exibir os elementos no mapa. Então vamos lá. Aqui na pastinha de Views nós temos três arquivos: o ContentView, que é o arquivo principal, o Header, a Célula. E agora nós vamos criar então um quarto arquivo, chamado "MapaView".
+
+[00:45] Então eu vou vir aqui em novo arquivo, vou manter a opção SwiftUI View selecionada, vou dar um Next. O nome do arquivo vai ser "MapaView" e eu vou clicar aqui em Create. Bacana. Ele já traz as duas estruturas, que nós estudamos aqui no curso, que é o "body", que ele implementa o protocolo de View, onde nós desenhamos a tela e a pré-visualização. Até aqui nenhuma novidade.
+
+[01:16] A novidade é que nesse momento nós vamos utilizar um framework chamado MapKit. Se você já acompanha os cursos de iOS, aqui da Alura, você já deve ter visto que nós temos um curso com alguns frameworks nativos, nós falamos um pouquinho sobre esses frameworks, e também sobre o MapKit. E nós vamos utilizar ele aqui na nossa View de SwiftUI.
+
+[01:42] O único ponto é que o MapKit, ele acessa subclasses de UIView, e UIView é o framework que nós utilizamos nos outros cursos, que é o UIKit. Nesse caso, nós estamos trabalhando com um outro framework para criação de layout, que é o SwiftUI. Então quando nós precisamos trabalhar com outros frameworks de UIKit, como nesse caso o MapKit, nós precisamos implementar um protocolo um pouquinho diferente, para que consigamos então acessar essas subclasses de UIView dentro do SwiftUI.
+
+[02:22] Então o que vamos fazer? Vamos implementar o protocolo chamado e UIViewRepresentable. Ao invés de nós implementarmos esse protocolo que já vem aqui, por padrão, que é o View, nós vamos apagar e vamos implementar aqui o "UIViewRepresentable". Bacana, nesse momento eu posso tirar aqui essa variável computada "body", porque ela é utilizada quando nós implementamos o protocolo View. Como nós apagamos, nós não vamos mais utilizá-la.
+
+[02:56] O que precisamos implementar quando nós estamos trabalhando com esse protocolo? Vou apertar aqui a tecla "Command", vou clicar em cima do protocolo e vou vir aqui em Jump to Definition. Como eu sei que é um protocolo? Porque nós estamos trabalhando aqui com structs e quando nós trabalhamos com structs nós não conseguimos herdar de nenhuma outra classe, nós conseguimos implementar protocolos.
+
+[03:21] Então eu vou abrir aqui o protocolo "UIViewRepresentable", ele é um protocolo público e nós temos aqui alguns métodos obrigatórios, que é esse makeUIView e esse updateUIView. Esses dois métodos são obrigatórios, então nós vamos começar implementando eles. Vou chamar aqui então o método "makeUIView". Aqui, a grande sacada é mostrar para o método qual o tipo de UIView do UIKit nós vamos utilizar aqui no SwiftUI.
+
+[03:57] Nesse caso, nós vamos trabalhar com o MapKit, então nós vamos retornar aqui o mapa, é isso que nós vamos retornar para a View do SwiftUI. O mapa é o "MKMapView". Nós não estamos conseguindo acessar porque nós precisamos importar essa biblioteca, então vou dar um "import MapKit". Então, quando eu entro aqui, ele tem vários outros imports, ele consegue achar a biblioteca do MapKit.
+
+[04:33] E aqui nós vamos retornar o próprio contexto, que é o "MKMapView". Então eu vou retornar aqui o "Context" - na verdade eu vou passar aqui por parâmetro o contexto e vou retornar o mapa, é isso que nós estamos fazendo. Beleza, então como esse método pede que eu retorne o mapa, é isso que eu vou fazer agora.
+
+[04:56] Vou dar daqui um return - "return MKMapView" e eu vou passar aqui um frame, que é o ".zero", posição zero. Bacana, nós precisamos implementar o outro método. Vamos dar uma olhada aqui para ver qual era o outro método. O outro método é o "updateUIView", que na verdade é a criação do mapa que nós vamos fazer nesse método.
+
+[05:22] Então em um método nós retornamos o tipo de View que nós queremos acessar aqui no SwiftUI e o outro é o updateUIView, onde nós vamos utilizar, de fato, a View do mapa. O contexto, aqui novamente, nós vamos passar o próprio contexto, que é contexto da View, e aqui nós vamos implementar então as características do mapa.
+
+[05:52] Repare que aqui temos acesso, ele coloca esse nome UIView porque ele não sabe qual é a biblioteca que nós estamos utilizando, então pode ser qualquer uma, nesse caso é o MKMapView, que é o MapKit . Então nós temos acesso ao mapa através desse UIView aqui. Bacana. A ideia é a seguinte: a ideia é eu pegar essa viu, então "uiView" e setar uma região.
+
+[06:20] Essa região, ela vai vir do atributo viagem que nós temos, só que precisamos criar essa região. Então o que eu vou fazer? Aqui na linha de cima, eu vou criar essa região, ela é do tipo "MKCoordinateRegion", onde eu vou passar aqui o centro e o span. O centro, o que vai ser? Vai ser uma coordenada, que por enquanto eu não tenho. Por enquanto não tenho.
+
+[06:52] O span, na verdade, é o zoom que o mapa vai - é a amplitude do mapa quando abrirmos a localização. É um número que eu posso configurar, de acordo com a minha necessidade, nesse caso aqui, então eu vou criar um span, que é a visualização do mapa. Eu posso aumentar, diminuir, de acordo com o que eu precisar, é esse "MKCoordinateSpan".
+
+[07:17] Eu vou inicializar ele passando uma latitude, um valor, e uma longitude. Geralmente, a galera utiliza ": 0.2", que é um tamanho ok, que dá para visualizar bem a região que nós estamos abrindo no mapa. No próximo vídeo vamos testar, se vermos que tem alguma necessidade de aumentar ou diminuir, nós voltamos aqui nessa linha e nós alteramos esse valor
+
+[07:42] Agora que eu já tenho o span, eu vou passar aqui para o meu método para criar região e, com a região criada, eu vou setar então aqui embaixo no método onde nós estamos construindo uma. A única coisa que ele está reclamando, como eu já disse sobre a coordenada, então sempre que eu utilizar essa View, que é "MapaView", eu vou precisar passar então por parâmetros uma coordenada.
+
+[08:10] Então eu vou criar aqui uma variável, chamada "coordenada". Essa "coordenada" vai ser do tipo "LocationCoordinate2D" e, quando eu faço isso, como eu estou trabalhando com uma struct, eu não preciso criar um init, mas ele vai reclamar aqui na pré-visualização: que para ele funcionar, eu preciso passar uma coordenada. Para ele não ficar apontando nenhum erro, vou pegar a lista com todas as viagens, na primeira posição, que é o primeiro índice, que é o "[0]" e eu vou chamar aqui o atributo ".localizacao)".
+
+[08:48] Bacana, então com isso nós acabamos de criar uma View, que vai ser representada aqui pelo mapa, e a grande sacada desse vídeo é mostrar que conseguimos utilizar alguns frameworks - na verdade, os frameworks, que utilizam o UIKit, nesse caso o MapKit, através do protocolo "UIViewRepresentable". Então se você precisar utilizar alguma biblioteca de lá, provavelmente você vai ter que implementar esse protocolo e esses dois métodos onde você vai conseguir configurar a View que você quer exibir lá, de UIKit, aqui em SwiftUI.
+
+[09:23] A grande sacada é essa, é entender esse protocolo, porque provavelmente você vai utilizar em algum caso no seu projeto. No próximo vídeo, vamos trabalhar então com a navegação de telas, vamos chamar a tela de mapa que nós acabamos de criar, baseado no clique do usuário aqui em cada destino. Então no próximo vídeo encerramos o nosso curso.
+
+@@02
+Navegação entre telas
+
+[00:00] Agora que nós já implementamos o MapKit, através do protocolo UIViewRepresentable, chegou a hora de nós testarmos o mapa no nosso aplicativo. Eu estou aqui com o simulador, repare que quando eu clico em uma viagem, nós ainda não estamos chamando essa nova View de mapa que nós criamos. Então o objetivo desse vídeo é justamente isso: nós aprendemos a criar a navegação de uma tela para outra.
+[00:27] Nesse caso, quando clicarmos em uma viagem, vamos chamar então a View de mapa que nós acabamos de implementar. Beleza, para criar a navegação, nós vamos voltar no arquivo principal aqui, "ContentView", onde nós temos a lista e as células. Nós vamos implementar então um componente, que serve realmente para fazer navegação de uma tela para a outra. No SwiftUI nós chamamos isso de NavigationView.
+
+[00:58] Então nós vamos criar aqui um NavigationView, que vai nos ajudar justamente nisso. Então "NavigationView", eu vou colocar tudo isso, desde desse "IgnoringSafeArea" até o "GeometryReader", dentro do "NavigationView". Então eu vou dar um "Command + X" e vou colar tudo aqui, para dentro do "NavigationView".
+
+[01:26] Bacana, nós já temos então o componente "NavigationView" e esse componente, ele nos dá acesso a outro objeto, chamado NavigationLink, que é quem de fato vai chamar a próxima tela. Então qual que é a sacada? Dentro da lista, onde nós criamos cada célula, nós vamos utilizar então um NavigationLink, que vai nos ajudar a fazer então a navegação da tela. Então vamos lá. Aqui dentro, o que eu vou fazer?
+
+[02:00] Eu vou chamar o objeto "NavigationLink" - é essa opção aqui, NavigationLink. Quando eu instancio ele, eu posso passar um carinha chamado destination - olha só: "destination". Destination, na verdade, é o destino, qual vai ser o destino quando eu clicar em um elemento da lista. Cliquei em um elemento da lista, eu quero ir para outra tela, a tela de destino. Nesse caso, a tela de mapa que nós criamos no vídeo anterior, então o destino vai ser a View de mapa.
+
+[02:38] Então vou chamar aqui "MapaView", lembra que quando nós instanciamos essa View de mapa, nós precisamos passar aqui uma coordenada. Essa coordenada, ela vem do objeto viagem, que nós estamos utilizando aqui na lista, então esse objeto "viagem", ele tem uma propriedade chamada localização, que é a que nós vamos utilizar aqui. Então vou passar aqui "viagem.localizacao".
+
+[03:09] Essa label nós não vamos utilizar, então por isso eu vou apaga-la. E aqui dentro, NavigationLink, nós vamos colocar a célula. Então eu vou recortar a célula daqui e vou passar aqui para dentro. Legal. Para testar isso, eu vou rodar o app aqui no simulador, então eu estou com o iPhone 8, vamos gerar aqui um build.
+
+[03:41] Bacana, repare que quando nós utilizamos o NavigationLink, ele traz aqui uma setinha, indicando que a célula tem navegação. Então isso indica que o clique da célula vai levar o usuário para outra tela. Então vamos testar agora, vou clicar aqui em Rio de Janeiro, eu estou exibindo, de fato, a View do Rio de Janeiro.
+
+[04:00] Se eu apertar a tecla "Option" e der um zoom, eu consigo navegar aqui no mapa e tudo mais. Agora eu vou voltar, vou clicar aqui, por exemplo, em Ceará, ele exibe aqui Fortaleza. Consigo dar um zoom, consigo verificar o que tem aqui ao redor e tudo mais. Então a navegação já está funcionando. O único ajuste que eu vou fazer aqui é o seguinte: repare que quando eu clico, fica esse espaço em branco aqui.
+
+[04:27] Eu vou setar um título para a View de mapa. Aqui onde eu estou chamando então a View de mapa, eu instancio passando a coordenada e, ao final desse primeiro parênteses, eu vou utilizar uma propriedade chamada navigationBarTitle, então vou dar um ".navigationBarTitle" e vou selecionar essa opção onde eu passo um título que é um texto. Então aqui eu vou colocar, por exemplo, localização: "("Localização")".
+
+[05:07] Bacana, vou rodar o app de novo. Clico aqui em uma viagem, eu tenho aqui então a localização. O próximo ajuste que eu vou fazer: repara que o botão voltar, ele está escrito aqui em inglês, Back. Eu vou tirar esse título, eu quero que fique só a setinha aqui, azul. Para tirar esse título, eu vou setar um texto vazio. Então olha só: aqui eu tenho a lista, aqui eu tenho fechamento da lista.
+
+[05:39] Eu vou dar um ".navigationBarTitle" - navigationBarTitle. E eu passo aqui um título como string vazia. Agora, se eu subir novamente o app aqui no simulador, eu vou clicar aqui em uma viagem. Olha só: a setinha ficou sem nenhuma escrita, porque eu setei aqui uma string vazia. Legal, então com isso fechamos o conteúdo principal desse vídeo, que era mostrar para você justamente esse objeto NavigationView, que nos fornece o NavigationLink, que é, de fato, onde nós vamos passar o destino do clique, que nesse caso é a View de mapa.
+
+[06:20] Aprendemos aqui a customizar também o título do navigation e também tirar o título do botão. Para finalizar, vamos testar então o app em alguns outros dispositivos. Já vimos aqui no iPhone 8, eu vou rodar aqui no iPhone 11 para ver se está tudo ok. Sempre é bom utilizar o preview, mas na versão final é recomendado rodarmos de fato no simulador, para pegar algum bug.
+
+[06:50] Ou melhor ainda, se você tiver um dispositivo físico para verificar se as alterações estão de acordo com o que nós vimos aqui no simulador. Aqui, por exemplo, já conseguimos ver um probleminha, que é o espaçamento do header e da label aqui do Text alura viagens, ele está muito em cima, então eu vou vir aqui na View do header. Aqui, onde setamos um padding para o texto alura viagens, eu vou aumentar aqui um pouquinho, eu vou colocar aqui, por exemplo, ": 70".
+
+[07:23] Vou rodar novamente. Legal, aqui ficou um pouquinho melhor. Beleza, então já achamos aqui o primeiro bug, já resolvemos. A navegação está ok no iPhone. Agora, o próximo teste que nós vamos fazer vai ser aqui no iPad. Então vou selecionar aqui, por exemplo, iPad Pro. Vou rodar aqui. Ele está subindo o simulador.
+
+[07:57] Aqui nós temos um problema, que é o seguinte: quando nós trabalhamos com objeto NavigationView, no iPad nós precisamos setar uma configuração, que é um NavigationViewStyle. Então vou mostrar aqui para você. Aqui em "ContentView", nós precisamos setar uma propriedade chamada NavigationViewStyle para que o NavigationView funcione certinho no iPad.
+
+[08:22] Se não utilizarmos essa propriedade, ele vai ficar aqui com uma tela branca e você pode pensar que é um bug ou alguma coisa assim. Na verdade, não é um bug. Na verdade é uma propriedade que nós precisamos setar. Aqui onde nós utilizamos esse método para ignorar o SafeArea, nós vamos utilizar aqui, embaixo, um outro método chamado ".navigationViewStyle", onde nós vamos passar aqui esse "StackNavigationViewStyle".
+
+[08:57] Agora, se eu rodar novamente aqui, no iPad, ele vai entender o NavigationView e vai funcionar normalmente. Então vou clicar aqui em Rio de Janeiro, ele vai exibir a navegação sem nenhum problema. Bacana. Então o nosso aplicativo, ele está funcionando bem para outros dispositivos, como nós acabamos de testar. Com isso fechamos o conteúdo dessa aula.
+
+
+
+03
+Consolidando seu conhecimento
+PRÓXIMA ATIVIDADE
+
+Chegou a hora de você seguir todos os passos realizados por mim durante esta aula. Caso já tenha feito, excelente. Se ainda não, é importante que você implemente o que foi visto no vídeo para poder continuar com o próximo capítulo que tem como pré-requisito todo código aqui escrito. Se por acaso você já domina esta parte, em cada capítulo você terá a opção de baixar o projeto feito até aquele ponto. Você encontrará o link para download na próxima explicação do capítulo.
+
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
+
+@@04
+Acessando subclasses de UIView
+PRÓXIMA ATIVIDADE
+
+O que precisamos fazer para acessar subclasses de UIView dentro de SwiftUI?
+
+
+Implementar o protocolo UIViewRepresentable.
+ 
+Correto! Através do protocolo UIViewRepresentable conseguimos utilizar Views de UIKit dentro de Views com SwiftUI.
+Alternativa correta
+Não é possível utilizar subclasses de UIKit dentro de projetos com SwiftUI.
+ 
+Alternativa correta
+Implementar o framework UIKit dentro da View.
+ 
+Alternativa correta
+Criar uma extensão da View com o framework UIKit implementado.
+
+@@05
+Download do projeto final
+PRÓXIMA ATIVIDADE
+
+Você pode fazer o download ou acessar o código-fonte do projeto final via Github.
+
+@@06
+O que aprendemos?
+PRÓXIMA ATIVIDADE
+
+Nesse capítulo, aprendemos a:
+utilizar o protocolo UIViewRepresentable;
+implementar o MapKit;
+navegar por telas com Navigation View.
+
+@@07
+Conclusão
+
+[00:00] Chegamos ao último vídeo do nosso curso. Parabéns por ter chegado até aqui. Foi uma jornada onde nós aprendemos várias novidades, principalmente em relação ao nosso app e construção de layout. Você viu que nós utilizamos um framework totalmente novo, demos os primeiros passos, onde nós criamos a home e View do mapa.
+[00:24] E agora vamos rever tudo o que aprendemos durante esse curso. Nós começamos a criar o projeto com o arquivo ContentView, onde nós implementamos o header, que é a parte roxinha, de cima do aplicativo. Nós começamos então a colocar alguns elementos gráficos como textos, aprendemos várias propriedades, como por exemplo: a cor do texto, o tipo de fonte, a questão do espaçamento.
+
+[00:50] Também mexemos no posicionamento dos elementos, mexemos na cor de fundo. E à medida que nós fomos avançando e implementando o header, você pode ver que ele ficou um pouco extenso e tudo estava nesse arquivo principal, ContentView. Nós também começamos a implementar a lista, junto com a célula, então o arquivo começou a crescer bastante.
+
+[01:12] Foi então que nós começamos a quebrar esses componentes em arquivos diferentes, então nós temos aqui um arquivo principal, onde nós chamamos todos os outros pedaços do nosso layout, como header, a célula e tudo mais. Aprendemos também a trabalhar com imagens e, na última aula, nós vimos a parte do size class, ou seja, nós buildamos um aplicativo no iPhone, outro no iPad.
+
+[01:42] Começamos a fazer algumas verificações e mexer no posicionamento, tamanho e customizações. Desde o primeiro vídeo, nós começamos a mexer com a parte de pré-visualização, que nos ajudou bastante. Também trabalhamos com navegação de telas, onde nós criamos uma View de mapa e chamamos o mapa através do NavigationView, que nos dá acesso ao NavigationLink.
+
+[02:12] E dessa forma nós fazemos o bind entre as Views. Esse foi então o primeiro Curso de SwiftUI aqui na Alura, espero que você tenha gostado do nosso conteúdo e, ao final, você vai ser direcionado à página de avaliação do curso. Eu peço que você coloque uma avaliação para que nós sigamos melhorando nos próximos vídeos.
+
+https://github.com/alura-cursos/alura-viagens-swiftui/archive/743569c1a1765802708a9d9408f6bb089d2594b0.zip
+
+https://github.com/alura-cursos/alura-viagens-swiftui
+
+@@07
+Conclusão
+
+[00:00] Chegamos ao último vídeo do nosso curso. Parabéns por ter chegado até aqui. Foi uma jornada onde nós aprendemos várias novidades, principalmente em relação ao nosso app e construção de layout. Você viu que nós utilizamos um framework totalmente novo, demos os primeiros passos, onde nós criamos a home e View do mapa.
+[00:24] E agora vamos rever tudo o que aprendemos durante esse curso. Nós começamos a criar o projeto com o arquivo ContentView, onde nós implementamos o header, que é a parte roxinha, de cima do aplicativo. Nós começamos então a colocar alguns elementos gráficos como textos, aprendemos várias propriedades, como por exemplo: a cor do texto, o tipo de fonte, a questão do espaçamento.
+
+[00:50] Também mexemos no posicionamento dos elementos, mexemos na cor de fundo. E à medida que nós fomos avançando e implementando o header, você pode ver que ele ficou um pouco extenso e tudo estava nesse arquivo principal, ContentView. Nós também começamos a implementar a lista, junto com a célula, então o arquivo começou a crescer bastante.
+
+[01:12] Foi então que nós começamos a quebrar esses componentes em arquivos diferentes, então nós temos aqui um arquivo principal, onde nós chamamos todos os outros pedaços do nosso layout, como header, a célula e tudo mais. Aprendemos também a trabalhar com imagens e, na última aula, nós vimos a parte do size class, ou seja, nós buildamos um aplicativo no iPhone, outro no iPad.
+
+[01:42] Começamos a fazer algumas verificações e mexer no posicionamento, tamanho e customizações. Desde o primeiro vídeo, nós começamos a mexer com a parte de pré-visualização, que nos ajudou bastante. Também trabalhamos com navegação de telas, onde nós criamos uma View de mapa e chamamos o mapa através do NavigationView, que nos dá acesso ao NavigationLink.
+
+[02:12] E dessa forma nós fazemos o bind entre as Views. Esse foi então o primeiro Curso de SwiftUI aqui na Alura, espero que você tenha gostado do nosso conteúdo e, ao final, você vai ser direcionado à página de avaliação do curso. Eu peço que você coloque uma avaliação para que nós sigamos melhorando nos próximos vídeos.
+
